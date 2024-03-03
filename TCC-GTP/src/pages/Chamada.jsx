@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Button } from "react-native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {useFonts,Sen_700Bold} from "@expo-google-fonts/sen"
 import {Inter_600SemiBold} from "@expo-google-fonts/inter"
+import ChamadaButton from "../components/ChamadaButton";
 
 
 const style = StyleSheet.create({
@@ -19,12 +20,15 @@ const style = StyleSheet.create({
         height:46
     },
     passageiros:{
-        flex:1,
         alignItems:'center',
         justifyContent:'center',
         padding:14,
         fontSize:20,
-        fontFamily:'Inter_600SemiBold'
+        fontFamily:'Inter_600SemiBold',
+        height:50,
+        width:310,
+        borderColor:'#44d',
+        borderRadius:30,
     },
     containerP: {
         backgroundColor:'#B5C7F5',
@@ -34,6 +38,15 @@ const style = StyleSheet.create({
         marginRight:10,
         width:390,
         height:105,
+    },
+    botao:{
+        width:50,
+        height:40,
+        marginLeft:320,
+        marginVertical:-66,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderRadius:10,
     }
 });
 
@@ -44,11 +57,27 @@ const Chamada = () => {
             Sen_700Bold,
         })
 
-        
+    const [info,setInfo] = useState([])
+    const [B,setB] = useState(false)
+    const [colorButton,setColorButton] = useState('#fff')
+    
+    const ChangeButton = () =>{
+        setB(!B)
+        console.log("a")
+    }
+
+    const ChangeColor = () =>{
+        if(B == false){
+            setColorButton('#fff')
+        }
+        if(B == true){
+            setColorButton('#44749D')
+        }
+    
+    }
+
     
 
-    const [info,setInfo] = useState([])
-    
     const fetchDados = async () =>{
         try {
             const {data} = await axios.get('https://rickandmortyapi.com/api/character')
@@ -60,15 +89,17 @@ const Chamada = () => {
 
     useEffect(()=>{
         fetchDados()
+        ChangeColor()
     },[])
 
 
     const Informacao = ({i}) =>{
-        return(
-            <View style ={style.containerP}>
-                <Text style={style.passageiros}>{i.name}</Text>
-                <Text style= {style.passageiros}>Ponto</Text>
-            </View>
+        return(            
+                <View style ={style.containerP}>
+                    <Text style={style.passageiros}>{i.name}</Text>
+                    <Text style= {style.passageiros}>Ponto</Text>
+                    <ChamadaButton title="Test" onPressButton={ChangeButton} color={colorButton}/>
+                </View>
         )
     }
     
