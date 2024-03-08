@@ -2,26 +2,27 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
     cointainer:{
-        borderRadius:4,
-        width:60,
+        borderRadius:50,
+        width:100,
         height:60,
-        marginLeft:310,
+        marginLeft:280,
         marginVertical:-78,
         borderRadius:16,
+        backgroundColor:"#fff"
+
     },
     text:{
         marginTop:10,
-        marginLeft:2,
-        fontSize:20,
+        marginLeft:8,
+        fontSize:18,
         padding:8,
+        fontWeight:'bold'
     }
 })
 const ChamadaButton = ({title,onPressButton,color}) => {
     return (
-        <TouchableOpacity onPress={onPressButton}>
-            <View style={[style.cointainer,{backgroundColor:color}]}>
+        <TouchableOpacity style={[style.cointainer,{backgroundColor:color}]} onPress={onPressButton}>
                 <Text style={style.text}>{title}</Text>
-            </View>
         </TouchableOpacity>
     );
 }
