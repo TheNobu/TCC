@@ -72,7 +72,7 @@ const Chamada = () => {
   const ChangeButton = (index) => {
     setColorButtons(prevState => ({
       ...prevState,
-      [index]: prevState[index] === '#fff' ? '#44749D' : '#fff'
+      [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
     }));
   };
 
@@ -91,10 +91,9 @@ const Chamada = () => {
   };
 
   return (
-    <View style = {{marginBottom:54}}>
-      <View style={styles.container}>
-        <Text style={styles.header}>Passageiros</Text>
-      </View>
+    <View>
+      
+      
       <View>
         <FlatList
           data={info}
