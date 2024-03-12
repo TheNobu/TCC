@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { SearchBar } from "react-native-elements";
+import { Button, SearchBar } from "react-native-elements";
 import { FlatList, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 const style = StyleSheet.create({
@@ -20,13 +23,15 @@ const style = StyleSheet.create({
         height: 50,
     },
     containerAll:{
-        marginBottom:128,
+        marginBottom:204,
     }
     
     
 })
 
 const Passageiros = () => {
+      
+    const navigation = useNavigation();
     const [info,setInfo] = useState();
     const [search,setSearch] = useState('');
     const [resultsInfo, setResultsInfo] = useState([])
@@ -50,6 +55,10 @@ const Passageiros = () => {
           },500)
     }
 
+    const navigationPage = () =>{
+        navigation.navigate('Chamada')
+    }
+
     useEffect(()=>{
         getApi();
     },[])
@@ -64,11 +73,21 @@ const Passageiros = () => {
             value={search}
             />  
         </View>
+        <Button
+        title="Adicionar Passageiro"
+        onPress={navigationPage}
+        buttonStyle ={{
+            backgroundColor:'#2962F4',
+            borderRadius:12,
+            marginLeft:4,
+            marginRight:4,
+        }}
+        />
         <View style={style.containerAll}>
             <FlatList
                 data={resultsInfo}
                 renderItem={({item})=>(
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=> navigation.navigate('PassageiroD',{item})}>
                     <View style={style.container}>
                     <Text style={style.text}>{item.name}</Text>
                     </View>

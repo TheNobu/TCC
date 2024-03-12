@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import Passageiros from './src/pages/Passageiros';
+import PassageiroD from './src/pages/PassageiroD';
 
 
 // Crie uma instância do BottomTabNavigator
