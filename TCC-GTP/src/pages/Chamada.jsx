@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
 const Chamada = () => {
   const [info, setInfo] = useState([]);
   const [colorButtons, setColorButtons] = useState({});
-  const [num,setNum] = useState(false)
-  const [chamada,setChamada] = useState("Sem Embarque");
+  
 
     const [fontLoad] = useFonts({
         Sen_700Bold,
@@ -55,9 +54,9 @@ const Chamada = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const { data } = await axios.get('https://rickandmortyapi.com/api/character');
-        setInfo(data.results);
-        setColorButtons(data.results.reduce((acc, _, index) => {
+        const response = await axios.get('http://192.168.53.31:8080/passageiros');
+        setInfo(response.data);
+        setColorButtons(response.data.reduce((acc, _, index) => {
           acc[index] = '#fff';
           return acc;
         }, {}));
@@ -83,8 +82,8 @@ const Chamada = () => {
     return (
       
         <View style={styles.containerP}>
-          <Text style={styles.passageiros}>{item.name}</Text>
-          <Text style={styles.passageiros}>Ponto</Text>
+          <Text style={styles.passageiros}>{item.nome}</Text>
+          <Text style={styles.passageiros}>{item.ponto}</Text>
           <ChamadaButton title= "Presença" onPressButton={() => ChangeButton(index)} color={colorButtons[index]} />
         </View>
     );

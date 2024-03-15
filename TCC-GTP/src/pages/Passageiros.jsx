@@ -35,21 +35,21 @@ const Passageiros = () => {
     const [info,setInfo] = useState();
     const [search,setSearch] = useState('');
     const [resultsInfo, setResultsInfo] = useState([])
+   
 
 
-    const getApi = async() =>{
+    const getApi = async(   ) =>{
         try {
-            const { data } = await axios.get(`https://rickandmortyapi.com/api/character?name=${search}`);
-            setResultsInfo(data.results);
+            const response = await axios.get(`http://192.168.53.31:8080/passageiros/${search}`);
+            setResultsInfo(response.data);
         } catch (error) {
             console.log(error)
         }
     }
     
 
-    const searchInApi = (text)=> {
+    const searchInApi = async(text)=> {
         setSearch(text);
-            
         setTimeout(()=>{
                 getApi();
           },500)
@@ -60,7 +60,7 @@ const Passageiros = () => {
     }
 
     useEffect(()=>{
-        getApi();
+        getApi()
     },[])
 
     return (
@@ -87,9 +87,10 @@ const Passageiros = () => {
             <FlatList
                 data={resultsInfo}
                 renderItem={({item})=>(
-                    <TouchableOpacity onPress={()=> navigation.navigate('PassageiroD',{item})}>
+                    // onPress={()=> navigation.navigate('PassageiroD',{item})}
+                    <TouchableOpacity>
                     <View style={style.container}>
-                    <Text style={style.text}>{item.name}</Text>
+                    <Text style={style.text}>{item.nome}</Text>
                     </View>
                     </TouchableOpacity>
                 )}
