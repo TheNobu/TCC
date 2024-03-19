@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, SearchBar } from "react-native-elements";
-import { FlatList, View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
+import _ from 'lodash';
 import axios from "axios";
+import PassageiroD from "./PassageiroD";
 
 const style = StyleSheet.create({
     container:{
@@ -35,32 +37,37 @@ const Passageiros = () => {
     const [info,setInfo] = useState();
     const [search,setSearch] = useState('');
     const [resultsInfo, setResultsInfo] = useState([])
+    const [loading, setLoading] = useState(false);
    
 
 
-    const getApi = async(   ) =>{
+    const getApi = async() =>{
         try {
-            const response = await axios.get(`http://192.168.53.31:8080/passageiros/${search}`);
+            setLoading(true);
+            const response = await axios.get(`http://192.168.227.31:8080/passageiros/passageiros?nome=${search}`);
             setResultsInfo(response.data);
         } catch (error) {
             console.log(error)
+        } finally {
+        setLoading(false);
         }
     }
     
+    const delayedSearch = _.debounce(getApi, 500);
 
     const searchInApi = async(text)=> {
         setSearch(text);
-        setTimeout(()=>{
-                getApi();
-          },500)
+        if (text.trim() === '') {
+            getApi();
+        } else {
+            delayedSearch(text);
+        }
+        // setTimeout(()=>{
+        //     getApi();   
+        //    },400)
     }
-
-    const navigationPage = () =>{
-        navigation.navigate('Chamada')
-    }
-
-    useEffect(()=>{
-        getApi()
+    useEffect(()=>{    
+       getApi() 
     },[])
 
     return (
@@ -75,7 +82,6 @@ const Passageiros = () => {
         </View>
         <Button
         title="Adicionar Passageiro"
-        onPress={navigationPage}
         buttonStyle ={{
             backgroundColor:'#2962F4',
             borderRadius:12,
@@ -84,17 +90,20 @@ const Passageiros = () => {
         }}
         />
         <View style={style.containerAll}>
-            <FlatList
-                data={resultsInfo}
-                renderItem={({item})=>(
-                    // onPress={()=> navigation.navigate('PassageiroD',{item})}
-                    <TouchableOpacity>
-                    <View style={style.container}>
-                    <Text style={style.text}>{item.nome}</Text>
-                    </View>
-                    </TouchableOpacity>
-                )}
-        />
+         {loading ? (
+                    <ActivityIndicator size="large" color="#0000ff" />
+                ) : (
+                    <FlatList
+                        data={resultsInfo}
+                        renderItem={({item})=>(
+                            <TouchableOpacity onPress={()=>{navigation.navigate('PassageiroD',{item})}}>
+                                <View style={style.container}>
+                                    <Text style={style.text}>{item.nome}</Text>
+                                </View>
+                            </TouchableOpacity>
+                     )}
+                />
+            )}
         </View>
       </View>
     );
