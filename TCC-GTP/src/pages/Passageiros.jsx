@@ -44,7 +44,7 @@ const Passageiros = () => {
     const getApi = async() =>{
         try {
             setLoading(true);
-            const response = await axios.get(`http://192.168.227.31:8080/passageiros/passageiros?nome=${search}`);
+            const response = await axios.get(`http://192.168.196.31:8080/passageiros/passageiros?nome=${search}`);
             setResultsInfo(response.data);
         } catch (error) {
             console.log(error)
