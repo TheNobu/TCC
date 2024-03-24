@@ -9,6 +9,7 @@ import { Ionicons, AntDesign } from '@expo/vector-icons';
 import Passageiros from './src/pages/Passageiros';
 import PassageiroD from './src/pages/PassageiroD';
 import 'react-native-gesture-handler'
+import Cadastro from './src/pages/Cadastro';
 
 
 
@@ -27,6 +28,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name='PassageiroD' component={PassageiroD}/>
+        <Stack.Screen name='Cadastro' component={Cadastro}/>
       </Stack.Navigator>
     </NavigationContainer>
   ); 

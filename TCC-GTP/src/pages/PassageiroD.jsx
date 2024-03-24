@@ -4,6 +4,7 @@ import { Avatar } from "react-native-elements";
 import { Keyboard } from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"; 
+import { Icon } from "react-native-elements";
 
 
 
@@ -27,17 +28,21 @@ const style = StyleSheet.create({
         fontSize: 18,
         fontStyle:"italic",
         height: 28,
-        textAlign:"center",
         marginTop:10,
+        textAlign:"center",
+        
+        
     },
     text:{
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize:30,
+        fontSize:22,
         fontStyle:"italic",
         height:80,
         textAlign:"center",
-        padding:6
+        padding:6,
+        marginTop:36,
+        
     },
     avatar:{
         width:228,
@@ -49,14 +54,21 @@ const style = StyleSheet.create({
         justifyContent: 'space-around',
     },
     containerText:{
-        borderColor:"#000",
+        borderColor:"#B5C7F5",
         borderStyle:'solid',
-        borderWidth:2,
+        borderWidth:3,
         borderRadius:20,
         height:50,
-        marginRight:8,
-        marginLeft:8,
+        marginRight:12,
+        marginLeft:12,
         marginTop:26,
+        flexDirection: 'row', 
+        alignItems: 'center',
+        
+    },
+    containerPonto:{
+        flexDirection: 'row', 
+        alignItems: 'center'
     }
     
 })
@@ -75,9 +87,9 @@ const PassageiroD = () => {
                 size={220}
                 rounded
                 containerStyle={{
-                borderColor:"#000",
+                borderColor:"#B5C7F5",
                 borderStyle:'solid',
-                borderWidth:2,
+                borderWidth:3,
                 }}
                 source={{uri:"https://miro.medium.com/v2/resize:fit:736/0*e2FeM-WKmvdXJs9W.jpg"}}
                 />
@@ -86,17 +98,42 @@ const PassageiroD = () => {
                 <View>
                     <Text style={style.textNome}>{` ${item.nome}`}</Text>
                 </View>
-                <View>
+                <View style={style.containerPonto}>
+                    <Icon
+                        name='map-marker'
+                        type='font-awesome'
+                        color='#2962F4'
+                        size={20}
+                        style={{marginLeft:162,marginRight:10,marginTop:6}}
+                    />
                     <Text style={style.textPonto}>{` ${item.ponto}`}</Text>
                 </View>
                 <View style={style.containerText}>
-                    <FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: 5 }} />
+                    <Icon
+                        name='home'
+                        type='font-awesome'
+                        color='#2962F4'
+                        style={{marginLeft:10}}
+                    />
                     <Text style={style.text}>{` ${item.endereco}`}</Text>
                 </View>
                 <View style={style.containerText}>
+                <Icon
+                        name='phone'
+                        type='font-awesome'
+                        color='#2962F4'
+                        style={{marginLeft:10, marginRight:8}}
+                    />
                     <Text style={style.text}>{`${item.telefone}`}</Text>
                 </View>
                 <View style={style.containerText}>
+                <Icon
+                        name='calendar'
+                        type='font-awesome'
+                        color='#2962F4'
+                        size={18}
+                        style={{marginLeft:10, marginRight:8}}
+                    />
                     <Text style={style.text}>{`${item.dt_nascimento}`}</Text>
                 </View>
             </View>

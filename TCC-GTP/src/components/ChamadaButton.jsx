@@ -13,7 +13,7 @@ const style = StyleSheet.create({
     },
     text:{
         marginTop:10,
-        marginLeft:8,
+        marginLeft:4,
         fontSize:18,
         padding:8,
         fontWeight:'bold'

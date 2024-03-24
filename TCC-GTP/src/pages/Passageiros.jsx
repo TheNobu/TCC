@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
 import _ from 'lodash';
 import axios from "axios";
+import { Keyboard } from 'react-native';
 import PassageiroD from "./PassageiroD";
 
 const style = StyleSheet.create({
@@ -19,7 +20,7 @@ const style = StyleSheet.create({
     text:{
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 14,
+        padding: 10,
         fontSize: 16,
         fontFamily: 'Inter_600SemiBold',
         height: 50,
@@ -44,7 +45,7 @@ const Passageiros = () => {
     const getApi = async() =>{
         try {
             setLoading(true);
-            const response = await axios.get(`http://192.168.196.31:8080/passageiros/passageiros?nome=${search}`);
+            const response = await axios.get(`http://192.168.237.146:8080/passageiros/passageiros?nome=${search}`);
             setResultsInfo(response.data);
         } catch (error) {
             console.log(error)
@@ -70,6 +71,7 @@ const Passageiros = () => {
        getApi() 
     },[])
 
+    
     return (
         <View>
         <View>
@@ -88,6 +90,7 @@ const Passageiros = () => {
             marginLeft:4,
             marginRight:4,
         }}
+        onPress={()=>{navigation.navigate('Cadastro')}}
         />
         <View style={style.containerAll}>
          {loading ? (
