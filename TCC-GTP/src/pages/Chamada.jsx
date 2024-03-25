@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
 import axios from "axios";
 import { useFonts, Sen_700Bold } from "@expo-google-fonts/sen";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
+import { Chivo_200ExtraLight_Italic } from "@expo-google-fonts/chivo";
 import ChamadaButton from "../components/ChamadaButton";
 
 const styles = StyleSheet.create({
@@ -49,6 +50,7 @@ const Chamada = () => {
     const [fontLoad] = useFonts({
         Sen_700Bold,
         Inter_600SemiBold,
+        Chivo_200ExtraLight_Italic
     })
 
   useEffect(() => {

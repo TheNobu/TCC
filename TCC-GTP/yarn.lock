@@ -1267,10 +1267,20 @@
   resolved "https://registry.npmjs.org/@emotion/unitless/-/unitless-0.7.5.tgz"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
+"@expo-google-fonts/chivo@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/@expo-google-fonts/chivo/-/chivo-0.2.3.tgz"
+  integrity sha512-kc4J2ZzEhehKB0AUh+2aVsqsP2IM21lWXRct7yuSJ63O7eAScdOPoey8g5/CVvslOGMfKz8RI0FUa7NhAqJNLg==
+
 "@expo-google-fonts/inter@^0.2.3":
   version "0.2.3"
   resolved "https://registry.npmjs.org/@expo-google-fonts/inter/-/inter-0.2.3.tgz"
   integrity sha512-iHK9FI+dnE45X5c2Z5hSFwNH4zUWethizpbv3XUn0FIGw5jwvzriENz0a6wCdkI4/d+1QkurnHo5XHti7TbNJA==
+
+"@expo-google-fonts/roboto@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/@expo-google-fonts/roboto/-/roboto-0.2.3.tgz"
+  integrity sha512-PF6S//ZYWeXfpYTwvY2oEe0d5RnqwR5KMsGjuTgg6y9p/CPK/IkWL+wsbkzjfd+Jck1Q1pRlWOoe5uz42sQFRg==
 
 "@expo-google-fonts/sen@^0.2.3":
   version "0.2.3"

@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Input, Icon } from '@rneui/themed';
 import { Formik } from 'formik';
 import { TextInput as PaperInput } from 'react-native-paper';
 import axios from "axios";
 import { useState } from "react";
+import { Button } from "react-native-paper";
 
 
 const style = StyleSheet.create({
@@ -15,9 +16,9 @@ const style = StyleSheet.create({
     },
     text:{
         fontSize:22,
-        fontFamily: 'Inter_600SemiBold',
+        fontFamily: 'Chivo_200ExtraLight_Italic',
         marginLeft:12,
-        fontStyle:'italic',
+        
         
     }
 })
@@ -35,6 +36,15 @@ const Cadastro = () => {
                 label="Nome"
                 value={nome}
                 onChangeText={setNome}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', // Mudando a cor primária (cor do rótulo, linha indicadora, etc.)
+                    text: '#000000', // Mudando a cor do texto
+                    placeholder: '#CCCCCC', // Mudando a cor do placeholder
+                    background: '#FFFFFF', // Mudando a cor de fundo do input
+                  },
+                }}
                 style={{
                     backgroundColor:'#fff',
                     marginLeft:12,
@@ -49,6 +59,15 @@ const Cadastro = () => {
                 label="Ponto"
                 value={ponto}
                 onChangeText={setPonto}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', 
+                    text: '#000000',
+                    placeholder: '#CCCCCC', 
+                    background: '#FFFFFF', 
+                  },
+                }}
                 style={{
                     backgroundColor:'#fff',
                     marginLeft:12,
@@ -62,6 +81,15 @@ const Cadastro = () => {
                 label="Endereço"
                 value={endereco}
                 onChangeText={setEndereco}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', 
+                    text: '#000000',
+                    placeholder: '#CCCCCC', 
+                    background: '#FFFFFF', 
+                  },
+                }}
                 style={{
                     backgroundColor:'#fff',
                     marginLeft:12,
@@ -75,6 +103,15 @@ const Cadastro = () => {
                 label="Data Nascimento"
                 value={data}
                 onChangeText={setData}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', 
+                    text: '#000000',
+                    placeholder: '#CCCCCC', 
+                    background: '#FFFFFF', 
+                  },
+                }}
                 style={{
                     backgroundColor:'#fff',
                     marginLeft:12,
@@ -82,6 +119,67 @@ const Cadastro = () => {
                 }}
                 />
             </View>
+            <View style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',}}>
+              <Button 
+                mode="elevated"
+                onPress={()=>{console.log("click")}}
+                textColor="#2962F4"
+                style={{
+                  backgroundColor:'#fff',
+                  margin:8,
+                  marginTop:16,
+                  width:80,
+                }} 
+              >Seg</Button>
+              <Button 
+                mode="elevated"
+                onPress={()=>{console.log("click")}}
+                textColor="#2962F4"
+                style={{
+                  backgroundColor:'#fff',
+                  margin:8,
+                  marginTop:16,
+                  width:80,
+                }} 
+              >Ter</Button>
+               <Button 
+                mode="elevated"
+                onPress={()=>{console.log("click")}}
+                textColor="#2962F4"
+                style={{
+                  backgroundColor:'#fff',
+                  margin:8,
+                  marginTop:16,
+                  width:80,
+                }} 
+              >Qua</Button>
+               <Button 
+                mode="elevated"
+                onPress={()=>{console.log("click")}}
+                textColor="#2962F4"
+                style={{
+                  backgroundColor:'#fff',
+                  margin:8,
+                  marginTop:16,
+                  width:80,
+                }} 
+              >Qui</Button>
+               <Button 
+                mode="elevated"
+                onPress={()=>{console.log("click")}}
+                textColor="#2962F4"
+                style={{
+                  backgroundColor:'#fff',
+                  margin:8,
+                  marginTop:16,
+                  width:80,
+                }} 
+              >Sex</Button>
+             
+            </View>
+      
         </View>
         
 
