@@ -28,6 +28,44 @@ const Cadastro = () => {
     const [ponto,setPonto] = useState("");
     const [endereco,setEndereco] = useState("");
     const [data,setData] = useState("");
+    const [boo,setBoo] =useState(false);
+    const [segunda,setSegunda] = useState(false);
+    const [terca, setTerca] = useState(false);
+    const [quarta, setQuarta] = useState(false);
+    const [quinta, setQuinta] = useState(false);
+    const [sexta, setSexta] = useState(false);
+    const [sabado, setSabado] = useState(false);
+    const [domingo, setDomingo] = useState(false);
+  
+  
+
+
+    const changeColor = ()=>{
+   
+      setSegunda(!segunda);
+   
+      
+  
+      if (!segunda) {
+        console.log("Segunda vai")
+      } else {
+        console.log("Segunda não vai")
+      }
+      
+    }
+    const changeColor2 = ()=>{
+      setTerca(!terca);
+    }
+    const changeColor3 = ()=>{
+      setQuarta(!quarta);
+    }
+    const changeColor4 =()=>{
+      setQuinta(!quinta);
+    }
+    const changeColor5 =()=>{
+      setSexta(!sexta);
+    }
+
     return (
         <View>
             <View>
@@ -124,56 +162,56 @@ const Cadastro = () => {
                           justifyContent: 'space-around',}}>
               <Button 
                 mode="elevated"
-                onPress={()=>{console.log("click")}}
-                textColor="#2962F4"
+                onPress={changeColor}
+                textColor= {segunda ? '#fff' : '#2962F4'}
                 style={{
-                  backgroundColor:'#fff',
+                  backgroundColor: segunda ? '#2962F4' : '#fff',
                   margin:8,
-                  marginTop:16,
+                  marginTop:22,
                   width:80,
                 }} 
               >Seg</Button>
               <Button 
                 mode="elevated"
-                onPress={()=>{console.log("click")}}
+                onPress={changeColor2}
                 textColor="#2962F4"
                 style={{
-                  backgroundColor:'#fff',
+                  backgroundColor: terca ? '#000' : '#fff',
                   margin:8,
-                  marginTop:16,
+                  marginTop:22,
                   width:80,
                 }} 
               >Ter</Button>
                <Button 
                 mode="elevated"
-                onPress={()=>{console.log("click")}}
+                onPress={changeColor3}
                 textColor="#2962F4"
                 style={{
-                  backgroundColor:'#fff',
+                  backgroundColor: quarta ? '#000' : '#fff',
                   margin:8,
-                  marginTop:16,
+                  marginTop:22,
                   width:80,
                 }} 
               >Qua</Button>
                <Button 
                 mode="elevated"
-                onPress={()=>{console.log("click")}}
+                onPress={changeColor4}
                 textColor="#2962F4"
                 style={{
-                  backgroundColor:'#fff',
+                  backgroundColor: quinta ? '#000' : '#fff',
                   margin:8,
-                  marginTop:16,
+                  marginTop:22,
                   width:80,
                 }} 
               >Qui</Button>
                <Button 
                 mode="elevated"
-                onPress={()=>{console.log("click")}}
+                onPress={changeColor5}
                 textColor="#2962F4"
                 style={{
-                  backgroundColor:'#fff',
+                  backgroundColor: sexta ? '#000' : '#fff',
                   margin:8,
-                  marginTop:16,
+                  marginTop:22,
                   width:80,
                 }} 
               >Sex</Button>
