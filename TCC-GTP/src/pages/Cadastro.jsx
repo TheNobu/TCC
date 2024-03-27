@@ -5,6 +5,7 @@ import { TextInput as PaperInput } from 'react-native-paper';
 import axios from "axios";
 import { useState } from "react";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
 
 
 const style = StyleSheet.create({
@@ -17,13 +18,18 @@ const style = StyleSheet.create({
     text:{
         fontSize:22,
         fontFamily: 'Chivo_200ExtraLight_Italic',
-        marginLeft:12,
-        
-        
-    }
+        marginLeft:12, 
+    },
+    text2:{
+      fontSize:22,
+      fontFamily: 'Chivo_200ExtraLight_Italic',
+      marginLeft:12,
+      marginTop:20,
+  }
 })
 
 const Cadastro = () => {
+    const navigation = useNavigation();
     const [nome,setNome] = useState("");
     const [ponto,setPonto] = useState("");
     const [endereco,setEndereco] = useState("");
@@ -38,14 +44,10 @@ const Cadastro = () => {
     const [domingo, setDomingo] = useState(false);
   
   
-
-
     const changeColor = ()=>{
    
       setSegunda(!segunda);
-   
-      
-  
+
       if (!segunda) {
         console.log("Segunda vai")
       } else {
@@ -157,6 +159,7 @@ const Cadastro = () => {
                 }}
                 />
             </View>
+            <Text style={style.text2}>Agenda do Passageiro</Text>
             <View style={{
                           flexDirection: 'row',
                           justifyContent: 'space-around',}}>
@@ -168,56 +171,65 @@ const Cadastro = () => {
                   backgroundColor: segunda ? '#2962F4' : '#fff',
                   margin:8,
                   marginTop:22,
-                  width:80,
+                  width:74,
                 }} 
               >Seg</Button>
               <Button 
                 mode="elevated"
                 onPress={changeColor2}
-                textColor="#2962F4"
+                textColor={terca ? '#fff' : '#2962F4'}
                 style={{
-                  backgroundColor: terca ? '#000' : '#fff',
+                  backgroundColor: terca ? '#2962F4' : '#fff',
                   margin:8,
                   marginTop:22,
-                  width:80,
+                  width:74,
                 }} 
               >Ter</Button>
                <Button 
                 mode="elevated"
                 onPress={changeColor3}
-                textColor="#2962F4"
+                textColor={quarta ? '#fff' : '#2962F4'}
                 style={{
-                  backgroundColor: quarta ? '#000' : '#fff',
+                  backgroundColor: quarta ? '#2962F4' : '#fff',
                   margin:8,
                   marginTop:22,
-                  width:80,
+                  width:74,
                 }} 
               >Qua</Button>
                <Button 
                 mode="elevated"
                 onPress={changeColor4}
-                textColor="#2962F4"
+                textColor={quinta ? '#fff' : '#2962F4'}
                 style={{
-                  backgroundColor: quinta ? '#000' : '#fff',
+                  backgroundColor: quinta ? '#2962F4' : '#fff',
                   margin:8,
                   marginTop:22,
-                  width:80,
+                  width:74,
                 }} 
               >Qui</Button>
                <Button 
                 mode="elevated"
                 onPress={changeColor5}
-                textColor="#2962F4"
+                textColor={sexta ? '#fff' : '#2962F4'}
                 style={{
-                  backgroundColor: sexta ? '#000' : '#fff',
+                  backgroundColor: sexta ? '#2962F4' : '#fff',
                   margin:8,
                   marginTop:22,
-                  width:80,
+                  width:74,
                 }} 
               >Sex</Button>
-             
             </View>
-      
+                <Button
+                mode="elevated"
+                textColor='#fff'
+                onPress={()=>{navigation.navigate('Cadastro2')}}
+                style={{
+                  backgroundColor:'#2962F4',
+                  marginLeft:28,
+                  marginRight:28,
+                  marginTop:28
+                }}
+                >Continuar cadastro</Button>
         </View>
         
 

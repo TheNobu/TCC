@@ -10,6 +10,7 @@ import Passageiros from './src/pages/Passageiros';
 import PassageiroD from './src/pages/PassageiroD';
 import 'react-native-gesture-handler'
 import Cadastro from './src/pages/Cadastro';
+import Cadastro2 from './src/pages/Cadastro2';
 
 
 
@@ -29,6 +30,7 @@ export default function App() {
         />
         <Stack.Screen name='PassageiroD' component={PassageiroD}/>
         <Stack.Screen name='Cadastro' component={Cadastro}/>
+        <Stack.Screen name='Cadastro2' component={Cadastro2}/>
       </Stack.Navigator>
     </NavigationContainer>
   ); 
