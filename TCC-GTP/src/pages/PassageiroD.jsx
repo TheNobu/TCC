@@ -23,14 +23,14 @@ const style = StyleSheet.create({
         marginTop:12,
     },
     textPonto:{
+        flexDirection: 'row', 
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 18,
-        fontStyle:"italic",
+        fontStyle:'italic',
         height: 28,
         marginTop:10,
-        textAlign:"center",
-        
+        textAlign:'center',
         
     },
     text:{
@@ -41,7 +41,7 @@ const style = StyleSheet.create({
         height:80,
         textAlign:"center",
         padding:6,
-        marginTop:36,
+        marginTop:40,
         
     },
     avatar:{
@@ -68,7 +68,8 @@ const style = StyleSheet.create({
     },
     containerPonto:{
         flexDirection: 'row', 
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center',
     }
     
 })
@@ -91,7 +92,7 @@ const PassageiroD = () => {
                 borderStyle:'solid',
                 borderWidth:3,
                 }}
-                source={{uri:"https://miro.medium.com/v2/resize:fit:736/0*e2FeM-WKmvdXJs9W.jpg"}}
+                source={{uri:`data:image/jpeg;base64,${item.foto}`}}
                 // data:image/jpeg;base64,${foto}
                 />
             </View>
@@ -99,13 +100,12 @@ const PassageiroD = () => {
                 <View>
                     <Text style={style.textNome}>{` ${item.nome}`}</Text>
                 </View>
-                <View style={style.containerPonto}>
+                <View style= {style.containerPonto}>
                     <Icon
                         name='map-marker'
                         type='font-awesome'
                         color='#2962F4'
-                        size={20}
-                        style={{marginLeft:162,marginRight:10,marginTop:6}}
+                        size={18}
                     />
                     <Text style={style.textPonto}>{` ${item.ponto}`}</Text>
                 </View>

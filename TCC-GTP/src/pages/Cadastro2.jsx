@@ -29,13 +29,12 @@ const Cadastro2 = () => {
 
     const postAxios = async() =>{
         try {
-            console.log(base64)
-            const post = await axios.post('http://192.168.237.146:8080/passageiros',
+            const post = await axios.post('http://192.168.51.31:8080/passageiros',
             {
                 "nome":`${params.nome}`,
                 "ponto":`${params.ponto}`,
                 "endereco": `${params.endereco}`,
-                "cpf":"86661887343797894795",
+                "cpf":"86485488377694795",
                 "telefone":`${params.telefone}`,
                 "dt_nascimento":`${params.data}`,
                 "foto":`${base64}`,

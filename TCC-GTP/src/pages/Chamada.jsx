@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, FlatList } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { useFonts, Sen_700Bold } from "@expo-google-fonts/sen";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import { Chivo_200ExtraLight_Italic } from "@expo-google-fonts/chivo";
 import ChamadaButton from "../components/ChamadaButton";
+import { Button } from "react-native-paper";
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
 const Chamada = () => {
   const [info, setInfo] = useState([]);
   const [colorButtons, setColorButtons] = useState({});
-  
+  const [loading, setLoading] = useState(false);
 
     const [fontLoad] = useFonts({
         Sen_700Bold,
@@ -53,10 +54,14 @@ const Chamada = () => {
         Chivo_200ExtraLight_Italic
     })
 
-  useEffect(() => {
+    const reloandingPage = () =>{
+      fetchDados()
+    }
+
     const fetchDados = async () => {
       try {
-        const response = await axios.get('http://192.168.237.146:8080/passageiros');
+        setLoading(true);
+        const response = await axios.get('http://192.168.51.31:8080/passageiros');
         setInfo(response.data);
         setColorButtons(response.data.reduce((acc, _, index) => {
           acc[index] = '#fff';
@@ -64,10 +69,12 @@ const Chamada = () => {
         }, {}));
       } catch (error) {
         console.log(error);
+      }finally {
+        setLoading(false);
       }
     };
-
-    fetchDados();
+  useEffect(() => {
+    fetchDados()
   }, []);
 
   const ChangeButton = (index) => {
@@ -94,13 +101,28 @@ const Chamada = () => {
   return (
     <View>
       
-      
+      <Button
+       mode='elevated' 
+       textColor={'#fff'}
+       onPress={reloandingPage}
+       style={{
+           margin:12,
+           marginTop:22,
+           width:120,
+           marginLeft:278,
+           backgroundColor:'#2962F4'     
+       }}
+        >Recaregar</Button>
       <View>
+      {loading ? (
+                    <ActivityIndicator size={50} color="#0000ff" style={{marginTop:20}} />
+                ) : (
         <FlatList
           data={info}
           renderItem={({ item, index }) => <Informacao item={item} index={index} />}
           keyExtractor={(item, index) => index.toString()}
         />
+      )} 
       </View>
     </View>
   );
