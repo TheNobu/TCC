@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { View,  Image, StyleSheet } from 'react-native';
+import { View,  Image, StyleSheet, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'
 import { Button } from "react-native-paper";
-// import RNFS from 'react-native-fs';
-
+import * as FileSystem from 'expo-file-system';
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
 
 const Cadastro2 = () => {
 
+    const route = useRoute();
+    const {params} = route.params; 
+
     const[selectImage,setSelectImage] = useState(null);
+    const[base64,setBase64] = useState("");
     const[manha,setManha] = useState(false);
     const[tarde,setTarde] = useState(false);
     const[noite,setNoite] = useState(false);
@@ -22,6 +27,32 @@ const Cadastro2 = () => {
         setNoite(!noite)
     }
 
+    const postAxios = async() =>{
+        try {
+            console.log(base64)
+            const post = await axios.post('http://192.168.237.146:8080/passageiros',
+            {
+                "nome":`${params.nome}`,
+                "ponto":`${params.ponto}`,
+                "endereco": `${params.endereco}`,
+                "cpf":"86661887343797894795",
+                "telefone":`${params.telefone}`,
+                "dt_nascimento":`${params.data}`,
+                "foto":`${base64}`,
+                "segunda": `${params.segunda}`,
+                "terca": `${params.terca}`,
+                "quarta": `${params.quarta}`,
+                "quinta": `${params.quinta}`,
+                "sexta": `${params.sexta}`,
+                "sabado": false,
+                "domingo": false,
+            })
+        } catch (error) {
+            console.log(error)
+        } finally{
+            console.log("Deu bom")
+        }
+    }
 
     useEffect(() => {
         (async () => {
@@ -45,17 +76,16 @@ const Cadastro2 = () => {
         if (!result.cancelled) {
             setSelectImage(result.assets[0].uri)
             
-                
-            // RNFS.readFile(result.assets[0].uri, 'base64')
-            // .then(base64Image => {
-            // // Use a string base64 como desejar, por exemplo, exibindo uma imagem
-            // console.log(base64Image);
-            // })
-            // .catch(error => {
-            // console.error('Erro ao ler a imagem:', error);
-            // });
+            FileSystem.readAsStringAsync(result.assets[0].uri, {
+                encoding: FileSystem.EncodingType.Base64,
+            }).then((base64Image) =>{
+                setBase64(base64Image);
+            })
+            .catch((error) =>{
+                console.error('Erro ao ler a imagem:', error);
+        })
+    }
 
-        }
     }
 
     
@@ -63,6 +93,10 @@ const Cadastro2 = () => {
         <View style={style.container}>
             {selectImage && <Image source={{ uri: selectImage }} style={style.image} />}
             <Button mode='elevated' onPress={pickImage} textColor='#000' style={{margin:22}}> Escolher Imagem</Button>
+            {/* {base64 && <Image source={{ uri: `data:image/jpeg;base64,${base64}` }} style={style.image} />} */}
+            <Text>{`${params.nome}`}</Text>
+            <Text>{`${params.endereco}`}</Text>
+            <Text>{`${params.telefone}`}</Text>
             <View style={{ flexDirection: 'row',
                           justifyContent: 'space-around',}}>
             <Button 
@@ -95,6 +129,19 @@ const Cadastro2 = () => {
                 width:100,
                 backgroundColor: noite ? '#2962F4' : '#fff'
             }}>Noite</Button>
+            </View>
+            <View>
+                <Button
+                mode='elevated' 
+                textColor= '#fff' 
+                onPress={postAxios}
+                style={{
+                    margin:12,
+                    marginTop:40,
+                    width:200,
+                    backgroundColor:'#2962F4'
+                }}
+                >Finalizar Cadastro</Button>
             </View>
         </View>
     );

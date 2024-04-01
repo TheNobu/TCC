@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Input, Icon } from '@rneui/themed';
 import { Formik } from 'formik';
-import { TextInput as PaperInput } from 'react-native-paper';
+import { TextInput as PaperInput, HelperText } from 'react-native-paper';
 import axios from "axios";
 import { useState } from "react";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { TextInputMask } from 'react-native-masked-text';
+
 
 
 const style = StyleSheet.create({
@@ -34,6 +36,7 @@ const Cadastro = () => {
     const [ponto,setPonto] = useState("");
     const [endereco,setEndereco] = useState("");
     const [data,setData] = useState("");
+    const [telefone,setTelefone] = useState("")
     const [boo,setBoo] =useState(false);
     const [segunda,setSegunda] = useState(false);
     const [terca, setTerca] = useState(false);
@@ -43,6 +46,11 @@ const Cadastro = () => {
     const [sabado, setSabado] = useState(false);
     const [domingo, setDomingo] = useState(false);
   
+
+
+    const hasErrors = () => {
+      return !data.includes('-');
+    };
   
     const changeColor = ()=>{
    
@@ -90,6 +98,30 @@ const Cadastro = () => {
                     marginLeft:12,
                     marginRight:12,
                     
+                }}
+                />
+            </View>
+            <View >
+                <Text style={style.text}>Telefone</Text>
+                <PaperInput
+                label="Telefone"
+                value={telefone}
+                keyboardType="phone-pad"
+                maxLength={11}
+                onChangeText={setTelefone}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', 
+                    text: '#000000',
+                    placeholder: '#CCCCCC', 
+                    background: '#FFFFFF', 
+                  },
+                }}
+                style={{
+                    backgroundColor:'#fff',
+                    marginLeft:12,
+                    marginRight:12,
                 }}
                 />
             </View>
@@ -158,6 +190,13 @@ const Cadastro = () => {
                     marginRight:12,
                 }}
                 />
+                <HelperText type="error" visible={hasErrors()}
+                style={{
+                  fontSize:16
+                }}
+                >
+                 Ultilize esse formato 00-00-0000
+                </HelperText>
             </View>
             <Text style={style.text2}>Agenda do Passageiro</Text>
             <View style={{
@@ -222,7 +261,7 @@ const Cadastro = () => {
                 <Button
                 mode="elevated"
                 textColor='#fff'
-                onPress={()=>{navigation.navigate('Cadastro2')}}
+                onPress={()=>{navigation.navigate('Cadastro2',{params:{nome,ponto,endereco,data,telefone,segunda,terca,quarta,quinta,sexta}})}}
                 style={{
                   backgroundColor:'#2962F4',
                   marginLeft:28,

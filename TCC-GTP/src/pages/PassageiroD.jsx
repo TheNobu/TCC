@@ -92,6 +92,7 @@ const PassageiroD = () => {
                 borderWidth:3,
                 }}
                 source={{uri:"https://miro.medium.com/v2/resize:fit:736/0*e2FeM-WKmvdXJs9W.jpg"}}
+                // data:image/jpeg;base64,${foto}
                 />
             </View>
             <View>

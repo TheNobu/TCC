@@ -56,7 +56,7 @@ const Chamada = () => {
   useEffect(() => {
     const fetchDados = async () => {
       try {
-        const response = await axios.get('http://192.168.190.31:8080/passageiros');
+        const response = await axios.get('http://192.168.237.146:8080/passageiros');
         setInfo(response.data);
         setColorButtons(response.data.reduce((acc, _, index) => {
           acc[index] = '#fff';
