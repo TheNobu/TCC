@@ -27,21 +27,21 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 18,
-        fontStyle:'italic',
         height: 28,
         marginTop:10,
         textAlign:'center',
+        fontFamily:'Chivo_200ExtraLight_Italic',
         
     },
     text:{
         alignItems: 'center',
         justifyContent: 'center',
         fontSize:22,
-        fontStyle:"italic",
+        fontFamily:'Chivo_200ExtraLight_Italic',
         height:80,
         textAlign:"center",
         padding:6,
-        marginTop:40,
+        marginTop:36,
         
     },
     avatar:{
@@ -61,15 +61,45 @@ const style = StyleSheet.create({
         height:50,
         marginRight:12,
         marginLeft:12,
-        marginTop:26,
+        marginTop:16,
         flexDirection: 'row', 
         alignItems: 'center',
+        
         
     },
     containerPonto:{
         flexDirection: 'row', 
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    container2:{
+        height:50,
+        marginRight:12,
+        marginLeft:12,
+        marginTop:10,
+        flexDirection: 'row', 
+        alignItems: 'center', 
+    },
+    text2:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize:22,
+        fontFamily:'Chivo_200ExtraLight_Italic',
+        textAlign:"center",      
+        marginTop:8,
+       
+    },
+    text3:{
+        fontSize:22,
+        fontFamily:'Chivo_200ExtraLight_Italic',
+    },
+    containerAgendaSeg:{
+        marginLeft:10,
+        marginRight:10,
+        width:58,
+        alignItems:'center',
+        borderRadius:8,
+        
     }
     
 })
@@ -80,6 +110,7 @@ const PassageiroD = () => {
 
     const route = useRoute();
     const {item} = route.params;
+    
   
     return (
         <View style={style.container}>
@@ -106,6 +137,7 @@ const PassageiroD = () => {
                         type='font-awesome'
                         color='#2962F4'
                         size={18}
+                        style={{marginTop:8}}
                     />
                     <Text style={style.textPonto}>{` ${item.ponto}`}</Text>
                 </View>
@@ -123,7 +155,7 @@ const PassageiroD = () => {
                         name='phone'
                         type='font-awesome'
                         color='#2962F4'
-                        style={{marginLeft:10, marginRight:8}}
+                        style={{marginLeft:12, marginRight:6,marginTop:2}}
                     />
                     <Text style={style.text}>{`${item.telefone}`}</Text>
                 </View>
@@ -132,10 +164,37 @@ const PassageiroD = () => {
                         name='calendar'
                         type='font-awesome'
                         color='#2962F4'
-                        size={18}
-                        style={{marginLeft:10, marginRight:8}}
+                        size={20}
+                        style={{marginLeft:12, marginRight:6,}}
                     />
                     <Text style={style.text}>{`${item.dt_nascimento}`}</Text>
+                </View>
+                <View>
+                    <Text style={style.text2}>Agenda</Text>
+                </View>
+                <View style={style.container2}>
+                    <View style={{
+                        marginLeft:10,
+                        marginRight:10,
+                        width:58,
+                        alignItems:'center',
+                        borderRadius:8,
+                     
+                    }}>
+                        <Text style={style.text3}>Seg</Text>
+                    </View>
+                    <View >
+                        <Text style={style.text3}>Ter</Text>
+                    </View>
+                    <View >
+                        <Text style={style.text3}>Qua</Text>
+                    </View>
+                    <View >
+                        <Text style={style.text3}>Qui</Text>
+                    </View>
+                    <View >
+                        <Text style={style.text3}>Sex</Text>
+                    </View>
                 </View>
             </View>
             

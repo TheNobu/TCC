@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, SearchBar } from "react-native-elements";
-import { FlatList, View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import { FlatList, View, Text, StyleSheet,ActivityIndicator } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useNavigation } from "@react-navigation/native";
@@ -8,6 +8,9 @@ import _ from 'lodash';
 import axios from "axios";
 import { Keyboard } from 'react-native';
 import PassageiroD from "./PassageiroD";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Icon } from "react-native-elements";
+
 
 const style = StyleSheet.create({
     container:{
@@ -41,11 +44,13 @@ const Passageiros = () => {
     const [loading, setLoading] = useState(false);
    
 
-
+    const reloandingPage = ()=>{
+        getApi()
+    }
     const getApi = async() =>{
         try {
             setLoading(true);
-            const response = await axios.get(`http://192.168.51.31:8080/passageiros/passageiros?nome=${search}`);
+            const response = await axios.get(`http://192.168.237.146:8080/passageiros/passageiros?nome=${search}`);
             setResultsInfo(response.data);
         } catch (error) {
             console.log(error)
@@ -54,7 +59,7 @@ const Passageiros = () => {
         }
     }
     
-    const delayedSearch = _.debounce(getApi, 500);
+    const delayedSearch = _.debounce(getApi, 200);
 
     const searchInApi = async(text)=> {
         setSearch(text);
@@ -80,8 +85,13 @@ const Passageiros = () => {
             platform="android"
             onChangeText={searchInApi}
             value={search}
-            />  
+            
+        />  
         </View>
+        <View style={{
+            flexDirection: 'row', 
+            alignItems: 'center',
+            justifyContent: 'space-between',}}>
         <Button
         title="Adicionar Passageiro"
         buttonStyle ={{
@@ -89,9 +99,21 @@ const Passageiros = () => {
             borderRadius:12,
             marginLeft:4,
             marginRight:4,
+            width:358,
+            marginTop:4
         }}
         onPress={()=>{navigation.navigate('Cadastro')}}
         />
+        <TouchableOpacity onPress={reloandingPage}>
+        <Icon
+          name='refresh'
+          type='font-awesome'
+          color='#2962F4'
+          size={30}
+          style={{marginRight:12, marginTop:2}}
+        />
+        </TouchableOpacity>
+        </View>
         <View style={style.containerAll}>
          {loading ? (
                     <ActivityIndicator size="large" color="#0000ff" />

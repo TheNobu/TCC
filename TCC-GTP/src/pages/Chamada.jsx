@@ -4,10 +4,13 @@ import axios from "axios";
 import { useFonts, Sen_700Bold } from "@expo-google-fonts/sen";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import { Chivo_200ExtraLight_Italic } from "@expo-google-fonts/chivo";
-import ChamadaButton from "../components/ChamadaButton";
+import ChamadaButton from "../components/ChamadaButton"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-native-paper";
+import { Icon } from "react-native-elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
     marginTop: 36,
     marginLeft: 10,
@@ -29,7 +32,6 @@ const styles = StyleSheet.create({
     width: 280,
     borderColor: '#44d',
     borderRadius: 30,
-
   },
   containerP: {
     flex: 1,
@@ -41,6 +43,17 @@ const styles = StyleSheet.create({
     width: 390,
     height: 105,
   },
+  cointainerButton:{
+    flexDirection: 'row', 
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  textIcon:{
+    fontSize:18,
+    marginTop:16,
+    paddingLeft:6,
+    fontFamily:'Inter_600SemiBold'
+  }
 });
 
 const Chamada = () => {
@@ -61,7 +74,7 @@ const Chamada = () => {
     const fetchDados = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://192.168.51.31:8080/passageiros');
+        const response = await axios.get('http://192.168.237.146:8080/passageiros');
         setInfo(response.data);
         setColorButtons(response.data.reduce((acc, _, index) => {
           acc[index] = '#fff';
@@ -89,31 +102,52 @@ const Chamada = () => {
         return null; 
       }
     return (
-      
-        <View style={styles.containerP}>
-          <Text style={styles.passageiros}>{item.nome}</Text>
-          <Text style={styles.passageiros}>{item.ponto}</Text>
+
+        <View style={style.containerP}>
+          <Text style={style.passageiros}>{item.nome}</Text>
+          <Text style={style.passageiros}>{item.ponto}</Text>
           <ChamadaButton title= "Presença" onPressButton={() => ChangeButton(index)} color={colorButtons[index]} />
         </View>
     );
   };
 
   return (
+    <SafeAreaView>
     <View>
-      
-      <Button
-       mode='elevated' 
-       textColor={'#fff'}
-       onPress={reloandingPage}
-       style={{
-           margin:12,
-           marginTop:22,
-           width:120,
-           marginLeft:278,
-           backgroundColor:'#2962F4'     
-       }}
-        >Recaregar</Button>
+    <View style={style.cointainerButton}> 
+    <View style={{flexDirection: 'row'}}>
+        <Icon
+          name='arrow-down'
+          type='font-awesome'
+          color='#2962F4'
+          size={26}
+          style={{marginTop:16, marginLeft:20}}
+        />
+        <Text style={style.textIcon}>Ida</Text>
+      </View>
+      <View style={{flexDirection: 'row'}}>
+        <Icon
+          name='arrow-up'
+          type='font-awesome'
+          color='#2962F4'
+          size={26}
+          style={{marginTop:16}}
+        />
+        <Text style={style.textIcon}>Volta</Text>
+      </View>
       <View>
+      <TouchableOpacity onPress={reloandingPage}>
+      <Icon
+          name='refresh'
+          type='font-awesome'
+          color='#2962F4'
+          size={30}
+          style={{marginRight:20, marginTop:12}}
+      />
+      </TouchableOpacity>
+      </View>
+      </View>
+      <View >
       {loading ? (
                     <ActivityIndicator size={50} color="#0000ff" style={{marginTop:20}} />
                 ) : (
@@ -124,7 +158,8 @@ const Chamada = () => {
         />
       )} 
       </View>
-    </View>
+      </View>
+      </SafeAreaView>
   );
 };
 

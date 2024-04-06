@@ -29,12 +29,11 @@ const Cadastro2 = () => {
 
     const postAxios = async() =>{
         try {
-            const post = await axios.post('http://192.168.51.31:8080/passageiros',
+            const post = await axios.post('http://192.168.237.146:8080/passageiros',
             {
                 "nome":`${params.nome}`,
                 "ponto":`${params.ponto}`,
                 "endereco": `${params.endereco}`,
-                "cpf":"86485488377694795",
                 "telefone":`${params.telefone}`,
                 "dt_nascimento":`${params.data}`,
                 "foto":`${base64}`,
@@ -43,8 +42,6 @@ const Cadastro2 = () => {
                 "quarta": `${params.quarta}`,
                 "quinta": `${params.quinta}`,
                 "sexta": `${params.sexta}`,
-                "sabado": false,
-                "domingo": false,
             })
         } catch (error) {
             console.log(error)
@@ -62,40 +59,65 @@ const Cadastro2 = () => {
         })();
     }, []);
     
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
+    // const pickImage = async () => {
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //         allowsEditing: true,
+    //         aspect: [4, 3],
+    //         quality: 1,
+    //     });
     
-        console.log(result);
+    //     console.log(result);
     
-        if (!result.cancelled) {
-            setSelectImage(result.assets[0].uri)
+    //     if (!result.cancelled) {
+    //         setSelectImage(result.assets[0].uri)
             
-            FileSystem.readAsStringAsync(result.assets[0].uri, {
-                encoding: FileSystem.EncodingType.Base64,
-            }).then((base64Image) =>{
-                setBase64(base64Image);
-            })
-            .catch((error) =>{
-                console.error('Erro ao ler a imagem:', error);
-        })
-    }
+    //         FileSystem.readAsStringAsync(result.assets[0].uri, {
+    //             encoding: FileSystem.EncodingType.Base64,
+    //         }).then((base64Image) =>{
+    //             setBase64(base64Image);
+    //         })
+    //         .catch((error) =>{
+    //             console.error('Erro ao ler a imagem:', error);
+    //     })
+    // }
 
+    // }
+    const pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+    
+            console.log(result);
+    
+            if (!result.cancelled && result.assets) {
+                setSelectImage(result.assets[0].uri);
+    
+                try {
+                    let base64Image = await FileSystem.readAsStringAsync(result.assets[0].uri, {
+                        encoding: FileSystem.EncodingType.Base64,
+                    });
+                    setBase64(base64Image);
+                } catch (error) {
+                    console.error('Erro ao ler a imagem:', error);
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao selecionar a imagem:', error);
+        }
     }
 
     
     return (
         <View style={style.container}>
             {selectImage && <Image source={{ uri: selectImage }} style={style.image} />}
-            <Button mode='elevated' onPress={pickImage} textColor='#000' style={{margin:22}}> Escolher Imagem</Button>
+            <Button mode='elevated' onPress={pickImage} textColor='#000' style={{margin:22,backgroundColor:'#fff'}}> Escolher Imagem do passageiro</Button>
             {/* {base64 && <Image source={{ uri: `data:image/jpeg;base64,${base64}` }} style={style.image} />} */}
-            <Text>{`${params.nome}`}</Text>
-            <Text>{`${params.endereco}`}</Text>
-            <Text>{`${params.telefone}`}</Text>
+            <Text style={style.text}>Turno</Text>
             <View style={{ flexDirection: 'row',
                           justifyContent: 'space-around',}}>
             <Button 
@@ -157,7 +179,11 @@ const style = StyleSheet.create({
       margin: 20,
       borderRadius:152,
       borderWidth:3,
-      borderColor:'#000'
+      borderColor:'#B5C7F5'
+    },
+    text:{
+        fontSize:22,
+        fontFamily: 'Chivo_200ExtraLight_Italic', 
     },
   });
 export default Cadastro2;
