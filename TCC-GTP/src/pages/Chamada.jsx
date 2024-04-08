@@ -5,6 +5,7 @@ import { useFonts, Sen_700Bold } from "@expo-google-fonts/sen";
 import { Inter_600SemiBold } from "@expo-google-fonts/inter";
 import { Chivo_200ExtraLight_Italic } from "@expo-google-fonts/chivo";
 import ChamadaButton from "../components/ChamadaButton"
+import ChamadaButton2 from "../components/ChamadaButton2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-native-paper";
 import { Icon } from "react-native-elements";
@@ -30,11 +31,11 @@ const style = StyleSheet.create({
     fontFamily: 'Inter_600SemiBold',
     height: 50,
     width: 280,
-    borderColor: '#44d',
-    borderRadius: 30,
+    borderRadius:20
+  
   },
   containerP: {
-    flex: 1,
+    flex:1,
     backgroundColor: '#B5C7F5',
     borderRadius: 22,
     marginTop: 15,
@@ -53,12 +54,26 @@ const style = StyleSheet.create({
     marginTop:16,
     paddingLeft:6,
     fontFamily:'Inter_600SemiBold'
-  }
+  },
+  button:{
+    backgroundColor:'#ccc',
+    height:20,
+    width:40,
+    marginLeft:286,
+    marginRight:10, 
+    marginVertical:-20
+  },
+  button2:{
+    backgroundColor:'#ccc',
+    height:20,
+    width:40,
+  },
 });
 
 const Chamada = () => {
   const [info, setInfo] = useState([]);
   const [colorButtons, setColorButtons] = useState({});
+  const [colorButtons2,setColorButtons2] = useState({});
   const [loading, setLoading] = useState(false);
 
     const [fontLoad] = useFonts({
@@ -80,6 +95,10 @@ const Chamada = () => {
           acc[index] = '#fff';
           return acc;
         }, {}));
+        setColorButtons2(response.data.reduce((acc, _, index) => {
+          acc[index] = '#fff';
+          return acc;
+        }, {}));
       } catch (error) {
         console.log(error);
       }finally {
@@ -90,12 +109,24 @@ const Chamada = () => {
     fetchDados()
   }, []);
 
-  const ChangeButton = (index) => {
-    setColorButtons(prevState => ({
-      ...prevState,
-      [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
-    }));
+  const ChangeButton = (index,buttonNumber) => {
+    if (buttonNumber === 1) {
+      setColorButtons(prevState => ({
+        ...prevState,
+        [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
+      }));
+    } else if (buttonNumber === 2) {
+      setColorButtons2(prevState => ({
+        ...prevState,
+        [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
+      }));
+    }
   };
+  //   setColorButtons(prevState => ({
+  //     ...prevState,
+  //     [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
+  //   }));
+  // };
 
   const Informacao = ({ item, index }) => {
     if (!fontLoad) {
@@ -104,15 +135,35 @@ const Chamada = () => {
     return (
 
         <View style={style.containerP}>
-          <Text style={style.passageiros}>{item.nome}</Text>
-          <Text style={style.passageiros}>{item.ponto}</Text>
-          <ChamadaButton title= "Presença" onPressButton={() => ChangeButton(index)} color={colorButtons[index]} />
+           <View>
+              <View>
+              <Text style={style.passageiros}>{item.nome}</Text>
+              </View>
+              <View style={{marginTop:4}}>
+              <Text style={style.passageiros}>{item.ponto}</Text>
+              </View>
+          </View>
+          <View style={{
+            flexDirection: 'row',}}>
+          {/* <TouchableOpacity style={style.button}>
+            <Text>test</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={style.button2}>
+            <Text>test</Text>
+          </TouchableOpacity> */}
+          <View>
+          <ChamadaButton title="Presença 1" onPressButton={() => ChangeButton(index, 1)} color={colorButtons[index]} />
+          </View>
+          <View>
+          <ChamadaButton2 title="Presença 2" onPressButton={() => ChangeButton(index, 2)} color={colorButtons2[index]} />
+          </View>
+          </View>
         </View>
     );
   };
 
   return (
-    <SafeAreaView>
+    
     <View>
     <View style={style.cointainerButton}> 
     <View style={{flexDirection: 'row'}}>
@@ -159,7 +210,7 @@ const Chamada = () => {
       )} 
       </View>
       </View>
-      </SafeAreaView>
+      
   );
 };
 

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { TextInputMask } from 'react-native-masked-text';
+import { size } from "lodash";
 
 
 
@@ -36,7 +37,9 @@ const Cadastro = () => {
     const [ponto,setPonto] = useState("");
     const [endereco,setEndereco] = useState("");
     const [data,setData] = useState("");
+    const [dataError, setDataError] = useState('');
     const [telefone,setTelefone] = useState("")
+    const [telefoneError, setTelefoneError] = useState('');
     const [boo,setBoo] =useState(false);
     const [segunda,setSegunda] = useState(false);
     const [terca, setTerca] = useState(false);
@@ -75,6 +78,37 @@ const Cadastro = () => {
     const changeColor5 =()=>{
       setSexta(!sexta);
     }
+
+    const validacao = () => {
+    if (!nome.trim()) {
+      alert('Por favor, preencha o campo nome.');
+      return;
+    }
+    if (!telefone.trim()) {
+      alert('Por favor, preencha o campo telefone.');
+      return;
+    }
+    if (!ponto.trim()) {
+      alert('Por favor, preencha o campo ponto.');
+      return;
+    }
+    if (!endereco.trim()) {
+      alert('Por favor, preencha o campo endereço.');
+      return;
+    }
+    if (!data.trim() || !data.includes('-')) {
+      setDataError('Utilize o formato 00-00-0000');
+      return;
+    }
+
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (!phoneRegex.test(telefone)) {
+      setTelefoneError('Por favor, insira um número de telefone válido.');
+      return;
+    }
+
+    navigation.navigate('Cadastro2', { params: { nome, telefone, ponto, endereco, data } });
+  };
 
     return (
         <View>
@@ -124,6 +158,7 @@ const Cadastro = () => {
                     marginRight:12,
                 }}
                 />
+                {telefoneError ? <Text style={{fontSize:16, marginLeft:14,color:'#d44'}}>{telefoneError}</Text> : null}
             </View>
             <View >
                 <Text style={style.text}>Ponto</Text>
@@ -190,13 +225,14 @@ const Cadastro = () => {
                     marginRight:12,
                 }}
                 />
-                <HelperText type="error" visible={hasErrors()}
+                {dataError ? <Text style={{fontSize:16, marginLeft:14,color:'#d44'}}>{dataError}</Text> : null}
+                {/* <HelperText type="error" visible={hasErrors()}
                 style={{
                   fontSize:16
                 }}
                 >
                  Ultilize esse formato 00-00-0000
-                </HelperText>
+                </HelperText> */}
             </View>
             <Text style={style.text2}>Agenda do Passageiro</Text>
             <View style={{
@@ -261,7 +297,7 @@ const Cadastro = () => {
                 <Button
                 mode="elevated"
                 textColor='#fff'
-                onPress={()=>{navigation.navigate('Cadastro2',{params:{nome,ponto,endereco,data,telefone,segunda,terca,quarta,quinta,sexta}})}}
+                onPress={validacao}
                 style={{
                   backgroundColor:'#2962F4',
                   marginLeft:28,

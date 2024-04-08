@@ -16,7 +16,7 @@ const style = StyleSheet.create({
         fontWeight:'bold'
     }
 })
-const ChamadaButton = ({title,onPressButton,color}) => {
+const ChamadaButton2 = ({title,onPressButton,color}) => {
     return (
         <TouchableOpacity style={[style.cointainer,{backgroundColor:color}]} onPress={onPressButton}>
                 <Text style={style.text}>text</Text>
@@ -24,4 +24,4 @@ const ChamadaButton = ({title,onPressButton,color}) => {
     );
 }
 
-export default ChamadaButton;
+export default ChamadaButton2;

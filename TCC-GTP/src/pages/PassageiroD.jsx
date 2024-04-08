@@ -18,7 +18,7 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 32,
         fontFamily: 'Inter_600SemiBold',
-        height: 40,
+        height: 44,
         textAlign:"center",
         marginTop:12,
     },
@@ -104,8 +104,6 @@ const style = StyleSheet.create({
     
 })
 
-
-
 const PassageiroD = () => {
 
     const route = useRoute();
@@ -179,20 +177,48 @@ const PassageiroD = () => {
                         width:58,
                         alignItems:'center',
                         borderRadius:8,
-                     
+                        backgroundColor: item.segunda ? '#2962F4' : '#ccc'
                     }}>
                         <Text style={style.text3}>Seg</Text>
                     </View>
-                    <View >
+                    <View style={{
+                        marginLeft:10,
+                        marginRight:10,
+                        width:58,
+                        alignItems:'center',
+                        borderRadius:8,
+                        backgroundColor: item.terca ? '#2962F4' : '#ccc'
+                    }}>
                         <Text style={style.text3}>Ter</Text>
                     </View>
-                    <View >
+                    <View style={{
+                        marginLeft:10,
+                        marginRight:10,
+                        width:58,
+                        alignItems:'center',
+                        borderRadius:8,
+                        backgroundColor: item.quarta ? '#2962F4' : '#ccc'
+                    }}>
                         <Text style={style.text3}>Qua</Text>
                     </View>
-                    <View >
+                    <View style={{
+                        marginLeft:10,
+                        marginRight:10,
+                        width:58,
+                        alignItems:'center',
+                        borderRadius:8,
+                        backgroundColor: item.quinta ? '#2962F4' : '#ccc'
+                    }}>
                         <Text style={style.text3}>Qui</Text>
                     </View>
-                    <View >
+                    <View style={{
+                        marginLeft:10,
+                        marginRight:10,
+                        width:58,
+                        alignItems:'center',
+                        borderRadius:8,
+                        backgroundColor: item.sexta ? '#2962F4' : '#ccc'
+                    }}>
                         <Text style={style.text3}>Sex</Text>
                     </View>
                 </View>
