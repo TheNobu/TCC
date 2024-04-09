@@ -113,12 +113,12 @@ const Chamada = () => {
     if (buttonNumber === 1) {
       setColorButtons(prevState => ({
         ...prevState,
-        [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
+        [index]: prevState[index] === '#fff' ? '#2196f3' : '#fff'
       }));
     } else if (buttonNumber === 2) {
       setColorButtons2(prevState => ({
         ...prevState,
-        [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
+        [index]: prevState[index] === '#fff' ? '#2196f3' : '#fff'
       }));
     }
   };

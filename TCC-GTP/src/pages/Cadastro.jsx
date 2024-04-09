@@ -40,14 +40,12 @@ const Cadastro = () => {
     const [dataError, setDataError] = useState('');
     const [telefone,setTelefone] = useState("")
     const [telefoneError, setTelefoneError] = useState('');
-    const [boo,setBoo] =useState(false);
     const [segunda,setSegunda] = useState(false);
     const [terca, setTerca] = useState(false);
     const [quarta, setQuarta] = useState(false);
     const [quinta, setQuinta] = useState(false);
     const [sexta, setSexta] = useState(false);
-    const [sabado, setSabado] = useState(false);
-    const [domingo, setDomingo] = useState(false);
+
   
 
 
@@ -56,15 +54,7 @@ const Cadastro = () => {
     };
   
     const changeColor = ()=>{
-   
       setSegunda(!segunda);
-
-      if (!segunda) {
-        console.log("Segunda vai")
-      } else {
-        console.log("Segunda não vai")
-      }
-      
     }
     const changeColor2 = ()=>{
       setTerca(!terca);
@@ -107,7 +97,7 @@ const Cadastro = () => {
       return;
     }
 
-    navigation.navigate('Cadastro2', { params: { nome, telefone, ponto, endereco, data } });
+    navigation.navigate('Cadastro2', { params: { nome, telefone, ponto, endereco, data, segunda, terca, quarta, quinta, sexta } });
   };
 
     return (

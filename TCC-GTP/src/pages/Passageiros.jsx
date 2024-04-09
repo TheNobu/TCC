@@ -23,7 +23,7 @@ const style = StyleSheet.create({
     text:{
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10,
+        margin:11,
         fontSize: 16,
         fontFamily: 'Inter_600SemiBold',
         height: 50,

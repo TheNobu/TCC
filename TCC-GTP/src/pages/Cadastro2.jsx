@@ -46,6 +46,7 @@ const Cadastro2 = () => {
         } catch (error) {
             console.log(error)
         } finally{
+            alert('Cadastrado com sucesso')
             console.log("Deu bom")
         }
     }
