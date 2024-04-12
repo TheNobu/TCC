@@ -1,11 +1,13 @@
-import { View,Text, Image, StyleSheet  } from "react-native";
+import { View,Text, Image, StyleSheet, ActivityIndicator } from "react-native";
 import { useRoute } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 import { Avatar } from "react-native-elements";
 import { Keyboard } from 'react-native';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons"; 
 import { Icon } from "react-native-elements";
-
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const style = StyleSheet.create({
@@ -100,16 +102,43 @@ const style = StyleSheet.create({
         alignItems:'center',
         borderRadius:8,
         
-    }
+    },
+    modifyButton: {
+        marginTop: 20,
+        alignSelf: 'center',
+        backgroundColor: '#2962F4',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+    },
+    modifyButtonText: {
+        fontSize: 18,
+        color: '#fff',
+    },
     
 })
 
-const PassageiroD = () => {
-
-    const route = useRoute();
+const PassageiroD = ({route}) => {
+    const navigation = useNavigation();
+    // const route = useRoute();
     const {item} = route.params;
     
-  
+    // const { passenger } = route.params;
+    // const [passengerData, setPassengerData] = useState(passenger);
+
+    // useEffect(() => {
+    //     if (passenger) {
+    //       setPassengerData(passenger);
+    //     }
+    //   }, [passenger]);
+    
+    //   // Verifica se passengerData está definido antes de acessar suas propriedades
+    //   if (!passengerData) {
+    //     return <ActivityIndicator />; // Ou qualquer componente de carregamento que você prefira
+    //   }
+    const handleModifyPress = () => {
+        navigation.navigate('ModificarPassageiro', { passenger: item }); 
+    };
     return (
         <View style={style.container}>
             <View style={style.avatar}>
@@ -222,6 +251,9 @@ const PassageiroD = () => {
                         <Text style={style.text3}>Sex</Text>
                     </View>
                 </View>
+                <TouchableOpacity style={style.modifyButton} onPress={handleModifyPress}>
+                    <Text style={style.modifyButtonText}>Modificar Passageiro</Text>
+                </TouchableOpacity>
             </View>
             
         </View>

@@ -59,7 +59,7 @@ const Passageiros = () => {
         }
     }
     
-    const delayedSearch = _.debounce(getApi, 200);
+    const delayedSearch = _.debounce(getApi, 0);
 
     const searchInApi = async(text)=> {
         setSearch(text);

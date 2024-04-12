@@ -11,6 +11,7 @@ import PassageiroD from './src/pages/PassageiroD';
 import 'react-native-gesture-handler'
 import Cadastro from './src/pages/Cadastro';
 import Cadastro2 from './src/pages/Cadastro2';
+import ModifyPassengerScreen from './src/pages/ModifyPassengerScreen';
 
 
 
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name='PassageiroD' component={PassageiroD}/>
         <Stack.Screen name='Cadastro' component={Cadastro}/>
         <Stack.Screen name='Cadastro2' component={Cadastro2}/>
+        <Stack.Screen name="ModificarPassageiro" component={ModifyPassengerScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   ); 
