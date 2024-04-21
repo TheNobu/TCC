@@ -12,6 +12,7 @@ import 'react-native-gesture-handler'
 import Cadastro from './src/pages/Cadastro';
 import Cadastro2 from './src/pages/Cadastro2';
 import ModifyPassengerScreen from './src/pages/ModifyPassengerScreen';
+import Map from './src/pages/Map';
 
 
 
@@ -58,6 +59,10 @@ const MainTabs = () => {
             <AntDesign name="user" color='#000' size={20}/>
           )
         }} 
+      />
+      <Tab.Screen
+        name='Map'
+        component={Map}
       />
     </Tab.Navigator>
   );

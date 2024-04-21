@@ -13,7 +13,8 @@ const ModifyPassengerScreen = ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
 //   const[selectImage,setSelectImage] = useState(null);
 
-  const verifyData = () =>{
+
+   const verifyData = () =>{
     console.log(passenger)
   }
   const updatePassenger = async () => {
@@ -28,6 +29,15 @@ const ModifyPassengerScreen = ({ route, navigation }) => {
     }
   };
   
+
+  useEffect(() => {
+    (async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            alert('Desculpe, precisamos de permissões de acesso à mídia para fazer isso funcionar!');
+        }
+    })();
+}, []);
 
   const getImage = async () => {
     try {
