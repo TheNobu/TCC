@@ -68,6 +68,12 @@ const style = StyleSheet.create({
     height:20,
     width:40,
   },
+  all:{
+    flex:1,
+    width:'100%',
+    height:'100%',
+    marginBottom:48,
+  }
 });
 
 const Chamada = () => {
@@ -164,7 +170,7 @@ const Chamada = () => {
 
   return (
     
-    <View>
+    <View style={style.all}>
     <View style={style.cointainerButton}> 
     <View style={{flexDirection: 'row'}}>
         <Icon
@@ -174,7 +180,7 @@ const Chamada = () => {
           size={26}
           style={{marginTop:16, marginLeft:20}}
         />
-        <Text style={style.textIcon}>Ida</Text>
+        <Text style={style.textIcon}>Saída </Text>
       </View>
       <View style={{flexDirection: 'row'}}>
         <Icon
@@ -182,9 +188,9 @@ const Chamada = () => {
           type='font-awesome'
           color='#2962F4'
           size={26}
-          style={{marginTop:16}}
+          style={{marginTop:14}}
         />
-        <Text style={style.textIcon}>Volta</Text>
+        <Text style={style.textIcon}>Entrada  </Text>
       </View>
       <View>
       <TouchableOpacity onPress={reloandingPage}>
@@ -193,7 +199,7 @@ const Chamada = () => {
           type='font-awesome'
           color='#2962F4'
           size={30}
-          style={{marginRight:20, marginTop:12}}
+          style={{marginRight:20, marginTop:12,marginBottom:6}}
       />
       </TouchableOpacity>
       </View>

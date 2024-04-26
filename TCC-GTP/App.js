@@ -63,6 +63,11 @@ const MainTabs = () => {
       <Tab.Screen
         name='Map'
         component={Map}
+        options={{
+          tabBarIcon:()=>(
+            <AntDesign name="earth" color='#000' size={20}/>
+          )
+        }} 
       />
     </Tab.Navigator>
   );

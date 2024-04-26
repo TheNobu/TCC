@@ -141,6 +141,16 @@ const PassageiroD = ({route}) => {
     };
     return (
         <View style={style.container}>
+            <View style={{width:40,height:40,marginLeft:360,justifyContent:'center',borderRadius:20}}>
+            <TouchableOpacity onPress={handleModifyPress}>
+                <Icon
+                        name='pencil'
+                        type='font-awesome'
+                        color='#2962F4'
+                        size={28}
+                    />
+                </TouchableOpacity>
+            </View>
             <View style={style.avatar}>
                 <Avatar
                 size={220}
@@ -200,6 +210,38 @@ const PassageiroD = ({route}) => {
                     <Text style={style.text2}>Agenda</Text>
                 </View>
                 <View style={style.container2}>
+                        <View style={{
+                            marginLeft:36,
+                            marginRight:10,
+                            width:78,
+                            alignItems:'center',
+                            borderRadius:8,
+                            backgroundColor: item.manha ? '#2962F4' : '#ccc'
+                        }}>
+                            <Text style={style.text3}>Manhã</Text>
+                        </View>
+                        <View style={{
+                            marginLeft:36,
+                            marginRight:10,
+                            width:78,
+                            alignItems:'center',
+                            borderRadius:8,
+                            backgroundColor: item.tarde ? '#2962F4' : '#ccc'
+                        }}>
+                            <Text style={style.text3}>Tarde</Text>
+                        </View>
+                        <View style={{
+                            marginLeft:36,
+                            marginRight:10,
+                            width:78,
+                            alignItems:'center',
+                            borderRadius:8,
+                            backgroundColor: item.noite ? '#2962F4' : '#ccc'
+                        }}>
+                            <Text style={style.text3}>Noite</Text>
+                        </View>
+                    </View>
+                <View style={style.container2}>
                     <View style={{
                         marginLeft:10,
                         marginRight:10,
@@ -251,9 +293,9 @@ const PassageiroD = ({route}) => {
                         <Text style={style.text3}>Sex</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={style.modifyButton} onPress={handleModifyPress}>
+                {/* <TouchableOpacity style={style.modifyButton} onPress={handleModifyPress}>
                     <Text style={style.modifyButtonText}>Modificar Passageiro</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             
         </View>

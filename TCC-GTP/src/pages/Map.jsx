@@ -394,13 +394,10 @@ const Map = () => {
                         // } else {
                         //     console.error('Detalhes do local não estão disponíveis.');
                         // }
-                        const placeId = details.place_id; // Obtido do objeto 'details'
-
-// Faça uma solicitação à API do Google Places para obter os detalhes completos do local
+                        const placeId = details.place_id;
                     fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`)
                         .then(response => response.json())
                         .then(data => {
-                            // Extraia as coordenadas de latitude e longitude dos detalhes do local
                             const { lat, lng } = data.result.geometry.location;
                             console.log('Latitude:', lat);
                             console.log('Longitude:', lng); 
@@ -426,8 +423,8 @@ const Map = () => {
             {initialRegion && (
                 <MapView
                 style={style.map}
-                initialRegion={initialRegion} // Use mapRegion como a região inicial do mapa
-                region={mapRegion} // Defina a região atual do mapa para o local pesquisado
+                initialRegion={initialRegion}
+                region={mapRegion} 
                 showsUserLocation={true}
                 followsUserLocation={true}
                 onPress={handleMapPress}

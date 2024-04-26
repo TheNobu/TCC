@@ -96,6 +96,10 @@ const Cadastro = () => {
       setTelefoneError('Por favor, insira um número de telefone válido.');
       return;
     }
+    if(segunda == false && terca == false && quarta == false && quinta == false && sexta == false){
+      alert("Por favor selecione os dia da semana");
+      return;
+    }
 
     navigation.navigate('Cadastro2', { params: { nome, telefone, ponto, endereco, data, segunda, terca, quarta, quinta, sexta } });
   };

@@ -11,6 +11,7 @@ import * as ImagePicker from 'expo-image-picker'
 const ModifyPassengerScreen = ({ route, navigation }) => {
   const [passenger, setPassenger] = useState(route.params.passenger);
   const [loading, setLoading] = useState(false);
+
 //   const[selectImage,setSelectImage] = useState(null);
 
 
@@ -179,6 +180,34 @@ const style = StyleSheet.create({
     }
 });
 
+const changeTurno = () => {
+  setPassenger({ ...passenger, manha: !passenger.manha });
+};
+const changeTurno2 = () => {
+  setPassenger({ ...passenger, tarde: !passenger.tarde });
+};
+const changeTurno3 = () => {
+  setPassenger({ ...passenger, noite: !passenger.noite });
+};
+const changeColor = () => {
+  setPassenger({ ...passenger, segunda: !passenger.segunda });
+};
+
+const changeColor2 = () => {
+  setPassenger({ ...passenger, terca: !passenger.terca });
+};
+
+const changeColor3 = () => {
+  setPassenger({ ...passenger, quarta: !passenger.quarta });
+};
+
+const changeColor4 = () => {
+  setPassenger({ ...passenger, quinta: !passenger.quinta });
+};
+
+const changeColor5 = () => {
+  setPassenger({ ...passenger, sexta: !passenger.sexta });
+};
 
   return (
     <KeyboardAvoidingView
@@ -206,6 +235,7 @@ const style = StyleSheet.create({
         
 <View>
          </View>
+         <View>
          <PaperInput
                 label="Nome"
                 value={passenger.nome}
@@ -291,7 +321,115 @@ const style = StyleSheet.create({
                     margin:6,
                 }}
                 />
-                <Button
+
+      {/* <Button title="test de dados" onPress={verifyData} /> */}
+      <Text style={style.text2}>Agenda do Passageiro</Text>
+      </View>
+            <View style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',}}>
+                <Button 
+                    mode="elevated"
+                    onPress={changeTurno}
+                    textColor= {passenger.manha ? '#fff' : '#2962F4'}
+                    style={{
+                      backgroundColor: passenger.manha ? '#2962F4' : '#fff',
+                      margin:8,
+                      marginTop:12,
+                      width:100,
+                      height:40,
+                    }} 
+                  >Manhã</Button>
+                  <Button 
+                    mode="elevated"
+                    onPress={changeTurno2}
+                    textColor= {passenger.tarde? '#fff' : '#2962F4'}
+                    style={{
+                      backgroundColor: passenger.tarde ? '#2962F4' : '#fff',
+                      margin:8,
+                      marginTop:12,
+                      width:100,
+                      height:40,
+                    }} 
+                  >Tarde</Button>
+                  <Button 
+                    mode="elevated"
+                    onPress={changeTurno3}
+                    textColor= {passenger.noite? '#fff' : '#2962F4'}
+                    style={{
+                      backgroundColor: passenger.noite ? '#2962F4' : '#fff',
+                      margin:8,
+                      marginTop:12,
+                      width:100,
+                      height:40,
+                    }} 
+                  >Noite</Button>
+            </View>
+            <View style={{
+                          flexDirection: 'row',
+                          justifyContent: 'space-around',}}>
+              <Button 
+                mode="elevated"
+                onPress={changeColor}
+                textColor= {passenger.segunda ? '#fff' : '#2962F4'}
+                style={{
+                  backgroundColor: passenger.segunda ? '#2962F4' : '#fff',
+                  margin:8,
+                  marginLeft:12,
+                  marginTop:22,
+                  width:74,
+                }} 
+              >Seg</Button>
+              <Button 
+                mode="elevated"
+                onPress={changeColor2}
+                textColor={passenger.terca ? '#fff' : '#2962F4'}
+                style={{
+                  backgroundColor: passenger.terca ? '#2962F4' : '#fff',
+                  margin:8,
+                  marginLeft:12,
+                  marginTop:22,
+                  width:74,
+                }} 
+              >Ter</Button>
+               <Button 
+                mode="elevated"
+                onPress={changeColor3}
+                textColor={passenger.quarta ? '#fff' : '#2962F4'}
+                style={{
+                  backgroundColor: passenger.quarta ? '#2962F4' : '#fff',
+                  margin:8,
+                  marginLeft:12,
+                  marginTop:22,
+                  width:74,
+                }} 
+              >Qua</Button>
+               <Button 
+                mode="elevated"
+                onPress={changeColor4}
+                textColor={passenger.quinta ? '#fff' : '#2962F4'}
+                style={{
+                  backgroundColor: passenger.quinta ? '#2962F4' : '#fff',
+                  margin:8,
+                  marginLeft:12,
+                  marginTop:22,
+                  width:74,
+                }} 
+              >Qui</Button>
+               <Button 
+                mode="elevated"
+                onPress={changeColor5}
+                textColor={passenger.sexta ? '#fff' : '#2962F4'}
+                style={{
+                  backgroundColor: passenger.sexta ? '#2962F4' : '#fff',
+                  margin:8,
+                  marginLeft:12,
+                  marginTop:22,
+                  width:74,
+                }} 
+              >Sex</Button>
+            </View>
+            <Button
                 mode="elevated"
                 textColor='#fff'
                 onPress={updatePassenger}
@@ -302,8 +440,6 @@ const style = StyleSheet.create({
                   marginTop:28
                 }}
                 >Confirmar</Button>
-
-      {/* <Button title="test de dados" onPress={verifyData} /> */}
     </View>
     </ScrollView>
     </KeyboardAvoidingView>

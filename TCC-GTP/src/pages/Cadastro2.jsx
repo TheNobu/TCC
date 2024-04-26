@@ -3,14 +3,14 @@ import { View,  Image, StyleSheet, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker'
 import { Button } from "react-native-paper";
 import * as FileSystem from 'expo-file-system';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
 const Cadastro2 = () => {
 
     const route = useRoute();
     const {params} = route.params; 
-
+    const navigation = useNavigation();
     const[selectImage,setSelectImage] = useState(null);
     const[base64,setBase64] = useState("");
     const[manha,setManha] = useState(false);
@@ -28,6 +28,10 @@ const Cadastro2 = () => {
     }
 
     const postAxios = async() =>{
+        if(manha == false && tarde == false && noite == false){
+            alert("O turno e obrigatorio para proseguir")
+            return;
+        }
         try {
             const post = await axios.post('http://192.168.237.146:8080/passageiros',
             {
@@ -42,12 +46,16 @@ const Cadastro2 = () => {
                 "quarta": `${params.quarta}`,
                 "quinta": `${params.quinta}`,
                 "sexta": `${params.sexta}`,
+                "manha": `${manha}`,
+                "tarde": `${tarde}`,
+                "noite": `${noite}`,
             })
         } catch (error) {
             console.log(error)
         } finally{
             alert('Cadastrado com sucesso')
             console.log("Deu bom")
+            navigation.navigate('Passageiros')
         }
     }
 
