@@ -26,6 +26,17 @@
 //             paddingVertical: 5,
 //             borderRadius: 8,
 //             backgroundColor: '#B5C7F5',
+//             marginLeft:260,
+//         },
+//         buttonContainer2: {
+//             position: 'absolute',
+//             bottom: 20,
+//             alignSelf: 'center',
+//             paddingHorizontal: 10,
+//             paddingVertical: 5,
+//             borderRadius: 8,
+//             backgroundColor: '#B5C7F5',
+//             marginLeft:12
 //         },
 //         buttonText: {
 //             fontSize: 16,
@@ -35,6 +46,7 @@
 //     const [location, setLocation] = useState(null);
 //     const [routeCoordinates, setRouteCoordinates] = useState([]);
 //     const [userMarker, setUserMarker] = useState(null);
+//     const [mapRegion, setMapRegion] = useState(null);
 
 //     async function requestLocationPermissions() {
 //         const { granted } = await requestForegroundPermissionsAsync();
@@ -57,6 +69,8 @@
 //     //     });
 //     //     return () => subscription.remove();
 //     // }, []);
+
+
 //     useEffect(() => {
 //         let subscription;
     
@@ -92,6 +106,10 @@
 //     const markerRemove = () => {
 //         setUserMarker(null)
 //         setRouteCoordinates([])
+//     }
+
+//     const makerSearchRemove = () =>{
+//         setMapRegion(null)
 //     }
 
 //     const calculateRoute = async (origin, destination) => {
@@ -157,31 +175,64 @@
 //         <View style={{ flex: 1 }}>
 //             <View style={style.searchBarContainer}>
 //             <GooglePlacesAutocomplete
-//                     placeholder='Search'
+//                     placeholder='Pesquisar'
 //                     onPress={(data, details = null) => {
-//                         console.log(data, details);
+//                         // console.log(details)
+//                         // if (details) {
+//                         //     const { lat, lng } = details.geometry.location;
+//                         //     console.log('Latitude:', lat);
+//                         //     console.log('Longitude:', lng);
+//                         // } else {
+//                         //     console.error('Detalhes do local não estão disponíveis.');
+//                         // }
+//                         const placeId = details.place_id;
+//                     fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`)
+//                         .then(response => response.json())
+//                         .then(data => {
+//                             const { lat, lng } = data.result.geometry.location;
+//                             console.log('Latitude:', lat);
+//                             console.log('Longitude:', lng); 
+//                             const region = {
+//                                 latitude: lat,
+//                                 longitude: lng,
+//                                 latitudeDelta: 0.005,
+//                                 longitudeDelta: 0.005
+//                             };
+//                             setMapRegion(region)
+//                         })
+//                         .catch(error => console.error('Erro ao obter detalhes do local:', error));
 //                     }}
 //                     query={{
 //                         key: 'AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y',
-//                         language: 'en', 
+//                         language: 'pt', 
 //                         components: 'country:br',
 //                     }}
 //                 />
 //             </View>
+//             <View>
+//             </View>
 //             {initialRegion && (
 //                 <MapView
-//                     style={style.map}
-//                     initialRegion={initialRegion}
-//                     showsUserLocation={true}
-//                     followsUserLocation={true}
-//                     onPress={handleMapPress}
+//                 style={style.map}
+//                 initialRegion={initialRegion}
+//                 region={mapRegion} 
+//                 showsUserLocation={true}
+//                 followsUserLocation={true}
+//                 onPress={handleMapPress}
 //                 >
 //                     {userMarker && (
 //                         <Marker
 //                             coordinate={userMarker}
 //                             title="Your destination"
-//                             pinColor="green"
+//                             pinColor="red"
 //                         />
+//                     )}
+//                     {mapRegion && (
+//                     <Marker
+//                     coordinate={mapRegion}
+//                     title="Local pesquisado"
+//                     pinColor="blue"
+//                     />
 //                     )}
 //                     {/* <Marker
 //                         coordinate={initialRegion}
@@ -196,16 +247,19 @@
 //                     />
 //                 </MapView>
 //             )}
+//             <View style={{flexDirection:'row'}}>
 //             <TouchableOpacity style= {style.buttonContainer}onPress={markerRemove}>
-//                 <Text style={style.buttonText}>Remover Marcador</Text>
+//                 <Text style={style.buttonText}>Remover Destino</Text>
 //             </TouchableOpacity>
+//             <TouchableOpacity style= {style.buttonContainer2}onPress={makerSearchRemove}>
+//                 <Text style={style.buttonText}>Remover Pesquisa</Text>
+//             </TouchableOpacity>
+//             </View>
 //         </View>
 //     );
 // };
 
 // export default Map;
-
-
 
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
@@ -256,6 +310,8 @@ const Map = () => {
     const [routeCoordinates, setRouteCoordinates] = useState([]);
     const [userMarker, setUserMarker] = useState(null);
     const [mapRegion, setMapRegion] = useState(null);
+    const [subscription, setSubscription] = useState(null);
+    const [isTrackingPosition, setIsTrackingPosition] = useState(false);
 
     async function requestLocationPermissions() {
         const { granted } = await requestForegroundPermissionsAsync();
@@ -267,63 +323,56 @@ const Map = () => {
         }
     }
 
-    // useEffect(() => {
-    //     requestLocationPermissions();
-    //     const subscription = watchPositionAsync({
-    //         accuracy: LocationAccuracy.Highest,
-    //         timeInterval: 1000,
-    //         distanceInterval: 1
-    //     }, (response) => {
-    //         setLocation(response.coords);
-    //     });
-    //     return () => subscription.remove();
-    // }, []);
-
-
     useEffect(() => {
-        let subscription;
-    
-        const startWatchingPosition = async () => {
-            const positionSubscription = await watchPositionAsync({
-                accuracy: LocationAccuracy.Highest,
-                timeInterval: 1000,
-                distanceInterval: 1
-            }, (response) => {
-                setLocation(response.coords);
-            });
-            subscription = positionSubscription;
-        };
-    
-        const stopWatchingPosition = () => {
-            if (subscription) {
-                subscription.remove();
-            }
-        };
-    
         requestLocationPermissions();
-        startWatchingPosition();
-    
-        return stopWatchingPosition;
     }, []);
 
     const handleMapPress = async ({ nativeEvent }) => {
         const { coordinate } = nativeEvent;
         setUserMarker(coordinate);
-        await calculateRoute(location, coordinate);
+        if (isTrackingPosition) {
+            await calculateRoute(location, coordinate);
+        } else {
+            await startWatchingPosition(coordinate);
+        }
     };
 
     const markerRemove = () => {
         setUserMarker(null)
         setRouteCoordinates([])
+        stopWatchingPosition(); 
     }
 
     const makerSearchRemove = () =>{
         setMapRegion(null)
     }
 
+    const startWatchingPosition = async (destination) => {
+        const positionSubscription = await watchPositionAsync({
+            accuracy: LocationAccuracy.Highest,
+            timeInterval: 1000,
+            distanceInterval: 1
+        }, (response) => {
+            setLocation(response.coords);
+            if (destination) {
+                calculateRoute(response.coords, destination);
+            }
+        });
+        setSubscription(positionSubscription);
+        setIsTrackingPosition(true);
+    };
+
+    const stopWatchingPosition = () => {
+        if (subscription) {
+            subscription.remove();
+            setSubscription(null);
+        }
+        setIsTrackingPosition(false);
+    };
+
     const calculateRoute = async (origin, destination) => {
         const apiKey = 'AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y';
-        const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${apiKey}`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`;
 
         try {
             const response = await axios.get(apiUrl);
@@ -383,33 +432,23 @@ const Map = () => {
     return (
         <View style={{ flex: 1 }}>
             <View style={style.searchBarContainer}>
-            <GooglePlacesAutocomplete
+                <GooglePlacesAutocomplete
                     placeholder='Pesquisar'
                     onPress={(data, details = null) => {
-                        // console.log(details)
-                        // if (details) {
-                        //     const { lat, lng } = details.geometry.location;
-                        //     console.log('Latitude:', lat);
-                        //     console.log('Longitude:', lng);
-                        // } else {
-                        //     console.error('Detalhes do local não estão disponíveis.');
-                        // }
                         const placeId = details.place_id;
-                    fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const { lat, lng } = data.result.geometry.location;
-                            console.log('Latitude:', lat);
-                            console.log('Longitude:', lng); 
-                            const region = {
-                                latitude: lat,
-                                longitude: lng,
-                                latitudeDelta: 0.005,
-                                longitudeDelta: 0.005
-                            };
-                            setMapRegion(region)
-                        })
-                        .catch(error => console.error('Erro ao obter detalhes do local:', error));
+                        fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`)
+                            .then(response => response.json())
+                            .then(data => {
+                                const { lat, lng } = data.result.geometry.location;
+                                const region = {
+                                    latitude: lat,
+                                    longitude: lng,
+                                    latitudeDelta: 0.005,
+                                    longitudeDelta: 0.005
+                                };
+                                setMapRegion(region)
+                            })
+                            .catch(error => console.error('Erro ao obter detalhes do local:', error));
                     }}
                     query={{
                         key: 'AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y',
@@ -417,8 +456,6 @@ const Map = () => {
                         components: 'country:br',
                     }}
                 />
-            </View>
-            <View>
             </View>
             {initialRegion && (
                 <MapView
@@ -443,12 +480,6 @@ const Map = () => {
                     pinColor="blue"
                     />
                     )}
-                    {/* <Marker
-                        coordinate={initialRegion}
-                        title="Your location"
-                        description="You are here"
-                        pinColor="blue"
-                    /> */}
                     <Polyline
                         coordinates={routeCoordinates}
                         strokeWidth={6}
@@ -469,4 +500,6 @@ const Map = () => {
 };
 
 export default Map;
+
+
 

@@ -96,21 +96,39 @@ const Chamada = () => {
       try {
         setLoading(true);
         const response = await axios.get('http://192.168.237.146:8080/passageiros');
-        setInfo(response.data);
-        setColorButtons(response.data.reduce((acc, _, index) => {
+        const currentDayOfWeek = new Date().getDay(); // Retorna um número de 0 (domingo) a 6 (sábado)
+        const dayOfWeekMap = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+        const currentDayName = dayOfWeekMap[currentDayOfWeek];
+        
+        const currentHour = new Date().getHours(); // Retorna a hora atual (de 0 a 23)
+        let currentTurno;
+        if (currentHour < 12) {
+          currentTurno = 'manha';
+        } else if (currentHour >= 12 && currentHour < 17) {
+          currentTurno = 'tarde';
+        } else {
+          currentTurno = 'noite';
+        }
+        
+        const filteredPassengers = response.data.filter(passenger => passenger[currentDayName] && passenger[currentTurno]);
+        
+        setInfo(filteredPassengers);
+        setColorButtons(filteredPassengers.reduce((acc, _, index) => {
           acc[index] = '#fff';
           return acc;
         }, {}));
-        setColorButtons2(response.data.reduce((acc, _, index) => {
+        setColorButtons2(filteredPassengers.reduce((acc, _, index) => {
           acc[index] = '#fff';
           return acc;
         }, {}));
       } catch (error) {
         console.log(error);
-      }finally {
+      } finally {
         setLoading(false);
       }
     };
+    
+    
   useEffect(() => {
     fetchDados()
   }, []);
@@ -128,11 +146,6 @@ const Chamada = () => {
       }));
     }
   };
-  //   setColorButtons(prevState => ({
-  //     ...prevState,
-  //     [index]: prevState[index] === '#fff' ? '#5d67fb' : '#fff'
-  //   }));
-  // };
 
   const Informacao = ({ item, index }) => {
     if (!fontLoad) {
@@ -151,12 +164,6 @@ const Chamada = () => {
           </View>
           <View style={{
             flexDirection: 'row',}}>
-          {/* <TouchableOpacity style={style.button}>
-            <Text>test</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={style.button2}>
-            <Text>test</Text>
-          </TouchableOpacity> */}
           <View>
           <ChamadaButton title="Presença 1" onPressButton={() => ChangeButton(index, 1)} color={colorButtons[index]} />
           </View>
@@ -221,3 +228,4 @@ const Chamada = () => {
 };
 
 export default Chamada;
+
