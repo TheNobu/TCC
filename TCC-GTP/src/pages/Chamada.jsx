@@ -96,12 +96,17 @@ const Chamada = () => {
       try {
         setLoading(true);
         const response = await axios.get('http://192.168.237.146:8080/passageiros');
-        const currentDayOfWeek = new Date().getDay(); // Retorna um número de 0 (domingo) a 6 (sábado)
+        
+        const currentDayOfWeek = new Date().getDay(); 
+
         const dayOfWeekMap = ['domingo', 'segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado'];
+
         const currentDayName = dayOfWeekMap[currentDayOfWeek];
         
-        const currentHour = new Date().getHours(); // Retorna a hora atual (de 0 a 23)
+        const currentHour = new Date().getHours();
+
         let currentTurno;
+
         if (currentHour < 12) {
           currentTurno = 'manha';
         } else if (currentHour >= 12 && currentHour < 17) {

@@ -120,22 +120,8 @@ const style = StyleSheet.create({
 
 const PassageiroD = ({route}) => {
     const navigation = useNavigation();
-    // const route = useRoute();
     const {item} = route.params;
     
-    // const { passenger } = route.params;
-    // const [passengerData, setPassengerData] = useState(passenger);
-
-    // useEffect(() => {
-    //     if (passenger) {
-    //       setPassengerData(passenger);
-    //     }
-    //   }, [passenger]);
-    
-    //   // Verifica se passengerData está definido antes de acessar suas propriedades
-    //   if (!passengerData) {
-    //     return <ActivityIndicator />; // Ou qualquer componente de carregamento que você prefira
-    //   }
     const handleModifyPress = () => {
         navigation.navigate('ModificarPassageiro', { passenger: item }); 
     };

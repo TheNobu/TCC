@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
+import { View, Text, TextInput, StyleSheet,KeyboardAvoidingView, ScrollView, Platform, Alert } from 'react-native';
 import axios from 'axios';
 import { TextInput as PaperInput, HelperText, Button } from 'react-native-paper';
 import { Avatar, Icon } from 'react-native-elements';
@@ -19,6 +19,39 @@ const ModifyPassengerScreen = ({ route, navigation }) => {
     console.log(passenger)
   }
   const updatePassenger = async () => {
+    if (!passenger.nome) {
+      alert('Por favor, preencha o campo nome.');
+      return;
+    }
+    if (!passenger.telefone) {
+      alert('Por favor, preencha o campo telefone.');
+      return;
+    }
+    if (!passenger.ponto) {
+      alert('Por favor, preencha o campo ponto.');
+      return;
+    }
+    if (!passenger.endereco) {
+      alert('Por favor, preencha o campo endereço.');
+      return;
+    }
+    
+    if (!passenger.dt_nascimento || !passenger.dt_nascimento.includes('-')) {
+      alert('Utilize o formato 00-00-0000 para a data.');
+      return;
+    }
+  
+    const phoneRegex = /^[0-9]{10,11}$/;
+    if (!phoneRegex.test(passenger.telefone)) {
+      alert('Por favor, insira um número de telefone válido.');
+      return;
+    }
+    // Verificar se pelo menos um dia da semana foi selecionado
+    if (!passenger.segunda && !passenger.terca && !passenger.quarta && !passenger.quinta && !passenger.sexta) {
+      alert('Por favor, selecione os dias da semana.');
+      return;
+    }
+  
     try {
       setLoading(true);
       const response = await axios.put(`http://192.168.237.146:8080/passageiros/${passenger.id}`, passenger);
@@ -143,7 +176,7 @@ const style = StyleSheet.create({
         fontSize:22,
         fontFamily:'Chivo_200ExtraLight_Italic',
         textAlign:"center",      
-        marginTop:8,
+        marginTop:2,
        
     },
     text3:{
@@ -179,6 +212,35 @@ const style = StyleSheet.create({
         paddingHorizontal: 10,
     }
 });
+
+const deletePassenger = async () => {
+  Alert.alert(
+    'Confirmar Exclusão',
+    'Tem certeza de que deseja excluir este passageiro?',
+    [
+      {
+        text: 'Cancelar',
+        style: 'cancel',
+      },
+      {
+        text: 'Sim',
+        onPress: async () => {
+          try {
+            const response = await axios.delete(`http://192.168.237.146:8080/passageiros/${passenger.id}`);
+            navigation.goBack();
+            navigation.goBack();
+          } catch (error) {
+            console.log(error);
+          }
+        },
+        style: 'destructive',
+      },
+    ],
+    { cancelable: false }
+  );
+};
+
+
 
 const changeTurno = () => {
   setPassenger({ ...passenger, manha: !passenger.manha });
@@ -216,7 +278,9 @@ const changeColor5 = () => {
       keyboardVerticalOffset={Platform.OS === 'android' ? 64 : 0} // Ajusta o offset vertical do teclado conforme necessário
       >
     <ScrollView>
-    <View style={style.container}>
+<View style={style.container}>
+<View style={{flexDirection: 'row',
+        justifyContent: 'space-around'}}>
 <TouchableOpacity onPress={getImage}>           
 <View style={style.avatar}>
     <Avatar
@@ -226,12 +290,23 @@ const changeColor5 = () => {
     borderColor:"#B5C7F5",
     borderStyle:'solid',
     borderWidth:3,
+    marginLeft:210
     }}
     source={{uri:`data:image/jpeg;base64,${passenger.foto}`}}
     />
 </View>
 </TouchableOpacity>
-
+<View style={{width:40,height:40,marginLeft:180,marginVertical:-10,justifyContent:'center',borderRadius:20}}>
+            <TouchableOpacity onPress={deletePassenger}>
+                <Icon
+                        name='trash'
+                        type='font-awesome'
+                        color='#2962F4'
+                        size={28}
+                    />
+                </TouchableOpacity>
+            </View>
+</View>
         
 <View>
          </View>
@@ -254,7 +329,8 @@ const changeColor5 = () => {
                     marginLeft:12,
                     marginRight:12,
                     width:376,
-                    margin:6,
+                    height:52,
+                    margin:2,
                 }}
                 />
       <PaperInput
@@ -275,7 +351,8 @@ const changeColor5 = () => {
                     marginLeft:12,
                     marginRight:12,
                     width:376,
-                    margin:6,
+                    height:52,
+                    margin:2,
                 }}
                 />
       <PaperInput
@@ -296,7 +373,8 @@ const changeColor5 = () => {
                     marginLeft:12,
                     marginRight:12,
                     width:376,
-                    margin:6,
+                    height:52,
+                    margin:2,
                 }}
                 />
       
@@ -304,6 +382,8 @@ const changeColor5 = () => {
                 label="Telefone"
                 value={passenger.telefone}
                 onChangeText={(text) => setPassenger({ ...passenger, telefone: text })}
+                keyboardType="phone-pad"
+                maxLength={11}
                 theme={{
                   roundness: 10,
                   colors: {
@@ -318,7 +398,30 @@ const changeColor5 = () => {
                     marginLeft:12,
                     marginRight:12,
                     width:376,
+                    height:52,
                     margin:6,
+                }}
+                />
+                <PaperInput
+                label="Data de Nascimento"
+                value={passenger.dt_nascimento}
+                onChangeText={(text) => setPassenger({ ...passenger, dt_nascimento: text })}
+                theme={{
+                  roundness: 10,
+                  colors: {
+                    primary: '#2962F4', 
+                    text: '#000000',
+                    placeholder: '#CCCCCC', 
+                    background: '#FFFFFF', 
+                  },
+                }}
+                style={{
+                    backgroundColor:'#fff',
+                    marginLeft:12,
+                    marginRight:12,
+                    width:376,
+                    height:52,
+                    margin:2,
                 }}
                 />
 
