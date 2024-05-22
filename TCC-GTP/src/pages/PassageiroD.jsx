@@ -18,7 +18,7 @@ const style = StyleSheet.create({
     textNome:{
         alignItems: 'center',
         justifyContent: 'center',
-        fontSize: 32,
+        fontSize: 28,
         fontFamily: 'Inter_600SemiBold',
         height: 44,
         textAlign:"center",

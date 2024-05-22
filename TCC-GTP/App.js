@@ -30,10 +30,10 @@ export default function App() {
           component={MainTabs}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name='PassageiroD' component={PassageiroD}/>
-        <Stack.Screen name='Cadastro' component={Cadastro}/>
-        <Stack.Screen name='Cadastro2' component={Cadastro2}/>
-        <Stack.Screen name="ModificarPassageiro" component={ModifyPassengerScreen} />
+        <Stack.Screen name="PassageiroD" component={PassageiroD} options={{title: 'Detalhes'}}/>
+        <Stack.Screen name="Cadastro" component={Cadastro}  options={{title: 'Cadastro de Passageiros'}}/>
+        <Stack.Screen name="Cadastro2" component={Cadastro2} options={{title: 'Continuação do cadastro'}}/>
+        <Stack.Screen name="ModificarPassageiro" component={ModifyPassengerScreen} options={{title: 'Alterar informações'}} />
       </Stack.Navigator>
     </NavigationContainer>
   ); 

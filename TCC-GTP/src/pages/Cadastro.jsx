@@ -112,6 +112,7 @@ const Cadastro = () => {
                 label="Nome"
                 value={nome}
                 onChangeText={setNome}
+                maxLength={40}
                 theme={{
                   roundness: 10,
                   colors: {

@@ -95,7 +95,7 @@ const Chamada = () => {
     const fetchDados = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://192.168.237.146:8080/passageiros');
+        const response = await axios.get('http://192.168.228.32:8080/passageiros');
         
         const currentDayOfWeek = new Date().getDay(); 
 

@@ -33,7 +33,7 @@ const Cadastro2 = () => {
             return;
         }
         try {
-            const post = await axios.post('http://192.168.237.146:8080/passageiros',
+            const post = await axios.post('http://192.168.228.32:8080/passageiros',
             {
                 "nome":`${params.nome}`,
                 "ponto":`${params.ponto}`,
