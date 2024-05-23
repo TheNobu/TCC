@@ -54,7 +54,7 @@ const ModifyPassengerScreen = ({ route, navigation }) => {
   
     try {
       setLoading(true);
-      const response = await axios.put(`http://192.168.228.32:8080/passageiros/${passenger.id}`, passenger);
+      const response = await axios.put(`http://192.168.237.87:8080/passageiros/${passenger.id}`, passenger);
       navigation.navigate('PassageiroD', { item: response.data});
     } catch (error) {
       console.error('Erro ao atualizar passageiro:', error);
@@ -226,7 +226,7 @@ const deletePassenger = async () => {
         text: 'Sim',
         onPress: async () => {
           try {
-            const response = await axios.delete(`http://192.168.228.32:8080/passageiros/${passenger.id}`);
+            const response = await axios.delete(`http://192.168.237.87:8080/passageiros/${passenger.id}`);
             navigation.goBack();
             navigation.goBack();
           } catch (error) {

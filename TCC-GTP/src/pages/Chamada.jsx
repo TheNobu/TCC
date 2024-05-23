@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "react-native-paper";
 import { Icon } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
+import { ApiIp } from "./config";
 const style = StyleSheet.create({
   container: {
     marginTop: 36,
@@ -95,7 +95,8 @@ const Chamada = () => {
     const fetchDados = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://192.168.228.32:8080/passageiros');
+        
+        const response = await axios.get(`http://192.168.237.87:8080/passageiros`);
         
         const currentDayOfWeek = new Date().getDay(); 
 

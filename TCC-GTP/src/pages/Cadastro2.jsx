@@ -33,7 +33,7 @@ const Cadastro2 = () => {
             return;
         }
         try {
-            const post = await axios.post('http://192.168.228.32:8080/passageiros',
+            const post = await axios.post('http://192.168.237.87:8080/passageiros',
             {
                 "nome":`${params.nome}`,
                 "ponto":`${params.ponto}`,
@@ -111,6 +111,7 @@ const Cadastro2 = () => {
                         encoding: FileSystem.EncodingType.Base64,
                     });
                     setBase64(base64Image);
+                    
                 } catch (error) {
                     console.error('Erro ao ler a imagem:', error);
                 }

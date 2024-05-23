@@ -204,6 +204,8 @@ const Cadastro = () => {
                 <PaperInput
                 label="Data Nascimento"
                 value={data}
+                keyboardType="phone-pad"
+                maxLength={10}
                 onChangeText={setData}
                 theme={{
                   roundness: 10,

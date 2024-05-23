@@ -50,7 +50,7 @@ const style = StyleSheet.create({
         width:228,
         height:222,
         borderRadius:108,
-        marginLeft:96,
+        marginLeft:92,
         marginTop:30,
         flexDirection: 'row',
         justifyContent: 'space-around',
