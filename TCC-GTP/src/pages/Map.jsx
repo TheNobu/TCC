@@ -26,7 +26,7 @@ const Map = () => {
             paddingVertical: 5,
             borderRadius: 8,
             backgroundColor: '#B5C7F5',
-            marginLeft:260,
+            marginLeft:264,
         },
         buttonContainer2: {
             position: 'absolute',
@@ -36,7 +36,7 @@ const Map = () => {
             paddingVertical: 5,
             borderRadius: 8,
             backgroundColor: '#B5C7F5',
-            marginLeft:12
+            marginLeft:16
         },
         buttonText: {
             fontSize: 16,
@@ -108,8 +108,7 @@ const Map = () => {
     };
 
     const calculateRoute = async (origin, destination) => {
-        const apiKey = googleMapsApiKey;
-        const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=AIzaSyD7jQHGmepNfVzBHJ01xqEdzLeGESdy19Y`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${googleMapsApiKey}`;
 
         try {
             const response = await axios.get(apiUrl);
