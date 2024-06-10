@@ -6,6 +6,7 @@ import { Avatar, Icon } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker'
+import { TextInputMask } from 'react-native-masked-text';
 
 
 const ModifyPassengerScreen = ({ route, navigation }) => {
@@ -36,16 +37,16 @@ const ModifyPassengerScreen = ({ route, navigation }) => {
       return;
     }
     
-    if (!passenger.dt_nascimento || !passenger.dt_nascimento.includes('-')) {
-      alert('Utilize o formato 00-00-0000 para a data.');
-      return;
-    }
+    // if (!passenger.dt_nascimento || !passenger.dt_nascimento.includes('-')) {
+    //   alert('Utilize o formato 00-00-0000 para a data.');
+    //   return;
+    // }
   
-    const phoneRegex = /^[0-9]{10,11}$/;
-    if (!phoneRegex.test(passenger.telefone)) {
-      alert('Por favor, insira um número de telefone válido.');
-      return;
-    }
+    // const phoneRegex = /^[0-9]{10,11}$/;
+    // if (!phoneRegex.test(passenger.telefone)) {
+    //   alert('Por favor, insira um número de telefone válido.');
+    //   return;
+    // }
     // Verificar se pelo menos um dia da semana foi selecionado
     if (!passenger.segunda && !passenger.terca && !passenger.quarta && !passenger.quinta && !passenger.sexta) {
       alert('Por favor, selecione os dias da semana.');
@@ -210,7 +211,15 @@ const style = StyleSheet.create({
         borderColor: '#ccc',
         marginBottom: 10,
         paddingHorizontal: 10,
-    }
+    },
+    inputContainer: {
+      marginBottom: 20,
+    },
+    inputLabel: {
+      marginBottom: 5,
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
 });
 
 const deletePassenger = async () => {
@@ -379,7 +388,7 @@ const changeColor5 = () => {
                 }}
                 />
       
-      <PaperInput
+      {/* <PaperInput
                 label="Telefone"
                 value={passenger.telefone}
                 onChangeText={(text) => setPassenger({ ...passenger, telefone: text })}
@@ -425,8 +434,63 @@ const changeColor5 = () => {
                     margin:2,
                 }}
                 />
-
-      {/* <Button title="test de dados" onPress={verifyData} /> */}
+               */}
+               <TextInputMask
+               label="Telefone"
+              type={'cel-phone'}
+              options={{
+                mask: '(99) 99999-9999'
+              }}
+              value={passenger.telefone}
+              onChangeText={(text) => setPassenger({ ...passenger, telefone: text })}
+              placeholder="Telefone"
+              customTextInput={PaperInput}
+              theme={{
+                roundness: 10,
+                colors: {
+                  primary: '#2962F4', 
+                  text: '#000000',
+                  placeholder: '#CCCCCC', 
+                  background: '#FFFFFF', 
+                },
+              }}
+              style={{
+                  backgroundColor:'#fff',
+                  marginLeft:12,
+                  marginRight:12,
+                  width:376,
+                  height:52,
+                  margin:2,
+              }}
+            />
+            <TextInputMask
+              label="Data de nascimento"
+              type={'datetime'}
+              options={{
+                format: 'DD-MM-YYYY'
+              }}
+              value={passenger.dt_nascimento}
+              onChangeText={(text) => setPassenger({ ...passenger, dt_nascimento: text })}
+              placeholder="Data de Nascimento"
+              customTextInput={PaperInput}
+              theme={{
+                roundness: 10,
+                colors: {
+                  primary: '#2962F4', 
+                  text: '#000000',
+                  placeholder: '#CCCCCC', 
+                  background: '#FFFFFF', 
+                },
+              }}
+              style={{
+                  backgroundColor:'#fff',
+                  marginLeft:12,
+                  marginRight:12,
+                  width:376,
+                  height:52,
+                  margin:2,
+              }}
+            />
       <Text style={style.text2}>Agenda do Passageiro</Text>
       </View>
             <View style={{
@@ -551,3 +615,4 @@ const changeColor5 = () => {
 };
 
 export default ModifyPassengerScreen;
+

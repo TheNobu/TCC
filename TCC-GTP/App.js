@@ -81,24 +81,3 @@ const styles = StyleSheet.create({
   },
 });
 
-
-{/* <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen 
-        name="Chamada"
-        component={Chamada} 
-        options={{
-          tabBarIcon:()=>(
-          <AntDesign name="book" color='#000' size={20}/>
-        )}}
-        />
-        <Tab.Screen 
-        name="Passageiros" 
-        component={Passageiros}
-        options={{
-          tabBarIcon:()=>(
-          <AntDesign name="user" color='#000' size={20}/>
-        )}} />
-      </Tab.Navigator>
-      <Stack.Screen name='PassageiroD' component={PassageiroD}/>
-    </NavigationContainer> */}
